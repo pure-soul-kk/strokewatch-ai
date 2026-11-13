@@ -22,11 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" data-type="software" data-radius="soft" data-buttons="pill" data-motion="subtle" className="dark">
       <head>
         <meta name="page-type" content="software" />
         <meta name="site-kind" content="software" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/assets/system.css" />
+        <script defer src="/assets/system.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
