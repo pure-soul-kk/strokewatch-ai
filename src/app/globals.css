@@ -27,7 +27,23 @@ body {
   color: var(--text-primary);
   font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow-x: hidden;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  caret-color: var(--accent-cyan);
+}
+
+/* Impeccable Browser Surface Theming */
+::selection {
+  background: rgba(34, 211, 238, 0.25);
+  color: #FFFFFF;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.tabular-numbers, [data-tabular] {
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* Custom Scrollbars */
