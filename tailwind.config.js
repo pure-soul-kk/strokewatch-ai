@@ -23,8 +23,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['"Google Sans Flex"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['"Google Sans Flex"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"Google Sans Flex"', 'monospace'],
       },
       boxShadow: {
         'glow-cyan': '0 0 20px -5px rgba(34, 211, 238, 0.3)',
