@@ -1,0 +1,153 @@
+import { IndiaRegistryData } from '@/types';
+
+export const INDIA_OVERVIEW = {
+  annualIncidence: 1850000,
+  annualIncidenceDisplay: '1.85 Million',
+  annualMortality: 720000,
+  annualMortalityDisplay: '720,000 Deaths',
+  prevalenceEstimated: 7800000,
+  prevalenceDisplay: '7.8 Million Survivors',
+  crudeIncidenceRateAvg: '119 – 145 / 100,000',
+  ageAdjustedRateAvg: '152.5 / 100,000',
+  dalysBurden: '24.2 Million DALYs',
+  ischemicProportion: 68.5,
+  hemorrhagicProportion: 31.5,
+  keyObservation: 'In India, hemorrhagic strokes account for ~31.5% of total events—more than double the Western proportion (~13%)—primarily driven by undiagnosed or inadequately controlled primary arterial hypertension in semi-urban and rural populations.',
+  nationalProgram: 'National Programme for Prevention and Control of Non-Communicable Diseases (NP-NCD) & ICMR-NCDIR Stroke Registry',
+  emergencyGoldStandardWindow: '4.5 Hours IV rtPA / 24 Hours Mechanical Thrombectomy'
+};
+
+export const INDIA_REGISTRIES: IndiaRegistryData[] = [
+  {
+    id: 'ludhiana',
+    city: 'Ludhiana',
+    state: 'Punjab',
+    coordinates: [30.9010, 75.8573],
+    crudeIncidenceRate: 152.0,
+    ageAdjustedIncidenceRate: 165.4,
+    ischemicShare: 77.0,
+    hemorrhagicShare: 23.0,
+    meanAge: 59.8,
+    hypertensionPrevalence: 78.4,
+    diabetesPrevalence: 38.6,
+    maleRatio: 62.1,
+    femaleRatio: 37.9,
+    registryType: 'Population-Based (PBSR)',
+    reportingPeriod: 'ICMR Population-Based Stroke Registry Phase II',
+    sampleSize: 3412,
+    source: 'ICMR-NCDIR & Christian Medical College (CMC) Ludhiana'
+  },
+  {
+    id: 'varanasi',
+    city: 'Varanasi',
+    state: 'Uttar Pradesh',
+    coordinates: [25.3176, 82.9739],
+    crudeIncidenceRate: 124.0,
+    ageAdjustedIncidenceRate: 142.0,
+    ischemicShare: 66.2,
+    hemorrhagicShare: 33.8,
+    meanAge: 56.4,
+    hypertensionPrevalence: 74.2,
+    diabetesPrevalence: 29.8,
+    maleRatio: 58.5,
+    femaleRatio: 41.5,
+    registryType: 'Hospital-Based (HBSR)',
+    reportingPeriod: 'Institute of Medical Sciences, BHU Cohort',
+    sampleSize: 1890,
+    source: 'BHU Neurological Sciences & ICMR Registry'
+  },
+  {
+    id: 'kota',
+    city: 'Kota',
+    state: 'Rajasthan',
+    coordinates: [25.2138, 75.8648],
+    crudeIncidenceRate: 118.0,
+    ageAdjustedIncidenceRate: 136.2,
+    ischemicShare: 71.5,
+    hemorrhagicShare: 28.5,
+    meanAge: 58.2,
+    hypertensionPrevalence: 69.8,
+    diabetesPrevalence: 26.5,
+    maleRatio: 59.0,
+    femaleRatio: 41.0,
+    registryType: 'Hospital-Based (HBSR)',
+    reportingPeriod: 'Government Medical College Kota Registry',
+    sampleSize: 1245,
+    source: 'GMC Kota Clinical Audit & ICMR-NCDIR'
+  },
+  {
+    id: 'cuttack',
+    city: 'Cuttack',
+    state: 'Odisha',
+    coordinates: [20.4625, 85.8830],
+    crudeIncidenceRate: 139.0,
+    ageAdjustedIncidenceRate: 158.0,
+    ischemicShare: 64.0,
+    hemorrhagicShare: 36.0,
+    meanAge: 57.1,
+    hypertensionPrevalence: 81.2,
+    diabetesPrevalence: 31.4,
+    maleRatio: 56.8,
+    femaleRatio: 43.2,
+    registryType: 'Population-Based (PBSR)',
+    reportingPeriod: 'Eastern India Regional Stroke Surveillance',
+    sampleSize: 2180,
+    source: 'SCB Medical College & ICMR-NCDIR'
+  },
+  {
+    id: 'cachar',
+    city: 'Cachar (Silchar)',
+    state: 'Assam',
+    coordinates: [24.8333, 92.7789],
+    crudeIncidenceRate: 146.5,
+    ageAdjustedIncidenceRate: 172.8,
+    ischemicShare: 61.2,
+    hemorrhagicShare: 38.8,
+    meanAge: 54.9,
+    hypertensionPrevalence: 84.6,
+    diabetesPrevalence: 24.1,
+    maleRatio: 64.4,
+    femaleRatio: 35.6,
+    registryType: 'Population-Based (PBSR)',
+    reportingPeriod: 'Northeast India Stroke Registry Programme',
+    sampleSize: 1650,
+    source: 'Silchar Medical College & ICMR-NCDIR Regional Cell'
+  },
+  {
+    id: 'tirunelveli',
+    city: 'Tirunelveli',
+    state: 'Tamil Nadu',
+    coordinates: [8.7139, 77.7567],
+    crudeIncidenceRate: 131.0,
+    ageAdjustedIncidenceRate: 148.5,
+    ischemicShare: 72.8,
+    hemorrhagicShare: 27.2,
+    meanAge: 61.3,
+    hypertensionPrevalence: 76.0,
+    diabetesPrevalence: 41.2,
+    maleRatio: 57.2,
+    femaleRatio: 42.8,
+    registryType: 'Population-Based (PBSR)',
+    reportingPeriod: 'Southern Tier PBSR Surveillance',
+    sampleSize: 2420,
+    source: 'Tirunelveli Medical College & ICMR-NCDIR'
+  }
+];
+
+export const INDIA_REGIONAL_COMPARISON = [
+  { region: 'North (Punjab, Haryana, Delhi, UP)', incidencePer100k: 156, hemorrhagicPercent: 28, meanAge: 58.5, tobaccoUsePercent: 44.2 },
+  { region: 'East & Northeast (Assam, WB, Odisha)', incidencePer100k: 168, hemorrhagicPercent: 37, meanAge: 55.2, tobaccoUsePercent: 58.6 },
+  { region: 'South (Tamil Nadu, Kerala, Karnataka)', incidencePer100k: 142, hemorrhagicPercent: 26, meanAge: 62.0, tobaccoUsePercent: 31.0 },
+  { region: 'West (Maharashtra, Gujarat, Rajasthan)', incidencePer100k: 138, hemorrhagicPercent: 29, meanAge: 59.1, tobaccoUsePercent: 36.8 }
+];
+
+export const INDIA_TRENDS = [
+  { year: 2000, cases: 1.22, deaths: 0.48, registrySites: 2 },
+  { year: 2005, cases: 1.39, deaths: 0.54, registrySites: 3 },
+  { year: 2010, cases: 1.55, deaths: 0.61, registrySites: 4 },
+  { year: 2015, cases: 1.68, deaths: 0.66, registrySites: 6 },
+  { year: 2020, cases: 1.80, deaths: 0.70, registrySites: 8 },
+  { year: 2023, cases: 1.85, deaths: 0.72, registrySites: 12 },
+  { year: 2025, cases: 1.94, deaths: 0.76, registrySites: 18, isProjected: true },
+  { year: 2030, cases: 2.18, deaths: 0.85, registrySites: 25, isProjected: true }
+];

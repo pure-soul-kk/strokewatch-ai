@@ -1,0 +1,191 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Header } from '@/components/layout/Header';
+import { Sidebar, NavTab } from '@/components/layout/Sidebar';
+import { EmergencyBanner } from '@/components/layout/EmergencyBanner';
+import { DisclaimerModal } from '@/components/layout/DisclaimerModal';
+
+// Dashboard components
+import { LiveStrokeCounter } from '@/components/dashboard/LiveStrokeCounter';
+import { MetricCards } from '@/components/dashboard/MetricCards';
+import { StrokeClockWidget } from '@/components/dashboard/StrokeClockWidget';
+import { DailyInsightCard } from '@/components/dashboard/DailyInsightCard';
+
+// Module components
+import { InteractiveWorldMap } from '@/components/map/InteractiveWorldMap';
+import { IndiaDashboard } from '@/components/india/IndiaDashboard';
+import { StrokeSenseChat } from '@/components/ai/StrokeSenseChat';
+import { RiskAssessmentLab } from '@/components/risk-lab/RiskAssessmentLab';
+import { FastEmergencyCenter } from '@/components/emergency/FastEmergencyCenter';
+import { AnalyticsCenter } from '@/components/analytics/AnalyticsCenter';
+import { WhatIfSimulator } from '@/components/prediction/WhatIfSimulator';
+import { ResearchFeed } from '@/components/research/ResearchFeed';
+
+export default function Home() {
+  const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const [selectedRegion, setSelectedRegion] = useState('global');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
+
+  const handleOpenFastCenter = () => {
+    setActiveTab('emergency');
+  };
+
+  return (
+    <div className="min-h-screen bg-[#080D18] text-white flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
+      {/* Top Critical Alert Banner */}
+      <EmergencyBanner onOpenFastModal={handleOpenFastCenter} />
+
+      {/* Main Command Header */}
+      <Header
+        selectedRegion={selectedRegion}
+        onSelectRegion={(reg) => {
+          setSelectedRegion(reg);
+          if (reg === 'india') {
+            setActiveTab('india');
+          }
+        }}
+        onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
+        onOpenFastCenter={handleOpenFastCenter}
+        onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+      />
+
+      {/* Body Area with Sidebar and Main Content Canvas */}
+      <div className="flex-1 flex relative">
+        {/* Navigation Sidebar */}
+        <Sidebar
+          activeTab={activeTab}
+          onSelectTab={setActiveTab}
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          isOpenMobile={isMobileSidebarOpen}
+          onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        />
+
+        {/* Content Canvas */}
+        <main
+          className={`flex-1 transition-all duration-300 ease-in-out p-4 sm:p-6 lg:p-8 overflow-y-auto ${
+            isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-72'
+          }`}
+        >
+          <div className="max-w-7xl mx-auto space-y-8">
+            {/* 1. Dashboard View */}
+            {activeTab === 'dashboard' && (
+              <div className="space-y-8 animate-in fade-in duration-300">
+                {/* Live Estimated Counter */}
+                <LiveStrokeCounter
+                  currentRegion={selectedRegion}
+                  onRegionChange={setSelectedRegion}
+                />
+
+                {/* Clock & Daily Insight Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <StrokeClockWidget />
+                  <DailyInsightCard />
+                </div>
+
+                {/* Executive KPI Metric Cards */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-base sm:text-lg font-bold text-white tracking-wide">
+                        CORE GLOBAL STROKE BENCHMARKS
+                      </h2>
+                      <p className="text-xs text-slate-400">
+                        Consolidated epidemiological indicators verified against GBD 2021 & WSO audits.
+                      </p>
+                    </div>
+                  </div>
+                  <MetricCards />
+                </div>
+              </div>
+            )}
+
+            {/* 2. Global Map View */}
+            {activeTab === 'map' && (
+              <div className="animate-in fade-in duration-300">
+                <InteractiveWorldMap />
+              </div>
+            )}
+
+            {/* 3. India Intelligence View */}
+            {activeTab === 'india' && (
+              <div className="animate-in fade-in duration-300">
+                <IndiaDashboard />
+              </div>
+            )}
+
+            {/* 4. StrokeSense AI Assistant */}
+            {activeTab === 'ai-chat' && (
+              <div className="animate-in fade-in duration-300">
+                <StrokeSenseChat />
+              </div>
+            )}
+
+            {/* 5. Stroke Risk Awareness Lab */}
+            {activeTab === 'risk-lab' && (
+              <div className="animate-in fade-in duration-300">
+                <RiskAssessmentLab />
+              </div>
+            )}
+
+            {/* 6. FAST Emergency Center */}
+            {activeTab === 'emergency' && (
+              <div className="animate-in fade-in duration-300">
+                <FastEmergencyCenter />
+              </div>
+            )}
+
+            {/* 7. Analytics & Research View */}
+            {activeTab === 'analytics' && (
+              <div className="animate-in fade-in duration-300">
+                <AnalyticsCenter />
+              </div>
+            )}
+
+            {/* 8. What-If? Forecasting Simulator */}
+            {activeTab === 'prediction' && (
+              <div className="animate-in fade-in duration-300">
+                <WhatIfSimulator />
+              </div>
+            )}
+
+            {/* 9. News & Impact Stories Feed */}
+            {activeTab === 'research-feed' && (
+              <div className="animate-in fade-in duration-300">
+                <ResearchFeed />
+              </div>
+            )}
+
+            {/* Platform Command Footer */}
+            <footer className="pt-8 pb-4 border-t border-slate-800/80 text-xs text-slate-400 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>StrokeWatch AI Surveillance Platform • Version 2.4.0</span>
+              </div>
+
+              <div className="flex items-center gap-4 text-[11px] font-mono">
+                <button
+                  onClick={() => setIsDisclaimerOpen(true)}
+                  className="hover:text-cyan-400 underline transition-colors"
+                >
+                  Clinical & Legal Disclosures
+                </button>
+                <span>•</span>
+                <span>GBD 2021 / WSO 2024 / ICMR-NCDIR</span>
+              </div>
+            </footer>
+          </div>
+        </main>
+      </div>
+
+      {/* Methodology & Disclaimers Modal */}
+      <DisclaimerModal
+        isOpen={isDisclaimerOpen}
+        onClose={() => setIsDisclaimerOpen(false)}
+      />
+    </div>
+  );
+}
