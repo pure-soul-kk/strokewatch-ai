@@ -32,7 +32,7 @@
             }
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['"Google Sans Flex"', 'Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }
         }
@@ -40,10 +40,19 @@
     }
   </script>
   <style>
+    @font-face {
+      font-family: 'Google Sans Flex';
+      src: url('/fonts/GoogleSansFlex.ttf') format('truetype-variations'),
+           url('public/fonts/GoogleSansFlex.ttf') format('truetype'),
+           url('fonts/GoogleSansFlex.ttf') format('truetype');
+      font-weight: 100 1000;
+      font-style: normal;
+      font-display: swap;
+    }
     body {
       background-color: #080D18;
       color: #FFFFFF;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     }
     .glass-panel {
       background: rgba(17, 27, 45, 0.75);
