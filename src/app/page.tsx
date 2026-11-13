@@ -34,7 +34,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080D18] text-white flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-sky-100 selection:text-sky-900">
       {/* Top Critical Alert Banner */}
       <EmergencyBanner onOpenFastModal={handleOpenFastCenter} />
 
@@ -66,7 +66,7 @@ export default function Home() {
 
         {/* Content Canvas */}
         <main
-          className={`flex-1 transition-all duration-300 ease-in-out p-4 sm:p-6 lg:p-8 overflow-y-auto ${
+          className={`flex-1 transition-all duration-300 ease-in-out p-4 sm:p-6 lg:p-8 overflow-y-auto bg-[#F8FAFC] ${
             isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-72'
           }`}
         >
@@ -90,10 +90,10 @@ export default function Home() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h2 className="text-base sm:text-lg font-bold text-white tracking-wide">
-                        CORE GLOBAL STROKE BENCHMARKS
+                      <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight heading-rounded">
+                        Core Global Stroke Benchmarks
                       </h2>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-500">
                         Consolidated epidemiological indicators verified against GBD 2021 & WSO audits.
                       </p>
                     </div>
@@ -160,16 +160,16 @@ export default function Home() {
             )}
 
             {/* Platform Command Footer */}
-            <footer className="pt-8 pb-4 border-t border-slate-800/80 text-xs text-slate-400 flex flex-wrap items-center justify-between gap-4">
+            <footer className="pt-8 pb-4 border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                <span>StrokeWatch AI Surveillance Platform • Version 2.4.0</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="font-medium text-slate-700">StrokeWatch AI Surveillance Platform • Version 2.4.0</span>
               </div>
 
-              <div className="flex items-center gap-4 text-[11px] font-mono">
+              <div className="flex items-center gap-4 text-[11px]">
                 <button
                   onClick={() => setIsDisclaimerOpen(true)}
-                  className="hover:text-cyan-400 underline transition-colors"
+                  className="hover:text-sky-600 underline transition-colors"
                 >
                   Clinical & Legal Disclosures
                 </button>

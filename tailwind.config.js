@@ -10,16 +10,17 @@ module.exports = {
     extend: {
       colors: {
         command: {
-          bg: '#080D18',
-          card: '#111B2D',
-          border: '#1E293B',
-          muted: '#94A3B8',
-          cyan: '#22D3EE',
-          blue: '#3B82F6',
-          amber: '#F59E0B',
-          red: '#EF4444',
-          emerald: '#10B981',
-          purple: '#A855F7',
+          bg: '#F8FAFC',
+          card: '#FFFFFF',
+          border: '#E2E8F0',
+          muted: '#64748B',
+          text: '#0F172A',
+          cyan: '#0284C7',
+          blue: '#2563EB',
+          amber: '#D97706',
+          red: '#DC2626',
+          emerald: '#059669',
+          purple: '#9333EA',
         },
       },
       fontFamily: {
@@ -27,13 +28,8 @@ module.exports = {
         mono: ['"Google Sans Flex"', 'monospace'],
       },
       boxShadow: {
-        'glow-cyan': '0 0 20px -5px rgba(34, 211, 238, 0.3)',
-        'glow-blue': '0 0 20px -5px rgba(59, 130, 246, 0.3)',
-        'glow-red': '0 0 20px -5px rgba(239, 68, 68, 0.4)',
-      },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
+        'elevated': '0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.06)',
       },
     },
   },
