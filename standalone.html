@@ -26,6 +26,13 @@
     }
     body {
       background-color: #F8FAFC;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(224, 242, 254, 0.65), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 20%, rgba(240, 249, 255, 0.75), transparent),
+        radial-gradient(ellipse 50% 50% at 10% 70%, rgba(224, 231, 255, 0.45), transparent),
+        radial-gradient(ellipse 70% 60% at 85% 90%, rgba(241, 245, 249, 0.7), transparent);
+      background-attachment: fixed;
+      background-size: cover;
       color: #0F172A;
       font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif !important;
       caret-color: #0284C7;
@@ -41,42 +48,149 @@
       font-family: 'Google Sans Flex', monospace !important;
       font-variant-numeric: tabular-nums lining-nums;
     }
-    .glass-panel {
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
+
+    /* Reflective Glass Blur System */
+    .glass-panel, .reflective-glass {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-top: 1px solid rgba(255, 255, 255, 0.95);
+      border-left: 1px solid rgba(255, 255, 255, 0.8);
+      border-right: 1px solid rgba(226, 232, 240, 0.75);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.65);
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3),
+        0 4px 20px -2px rgba(15, 23, 42, 0.05),
+        0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .glass-panel:hover {
-      border-color: #CBD5E1;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    .glass-panel:hover, .reflective-glass:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.75) 100%);
+      border-top-color: #FFFFFF;
+      box-shadow: 
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 1),
+        0 12px 28px -4px rgba(15, 23, 42, 0.08),
+        0 4px 10px -2px rgba(15, 23, 42, 0.04);
+      transform: translateY(-2px);
     }
+
+    .reflective-subcard, .glass-subcard {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.9);
+      border-left: 1px solid rgba(255, 255, 255, 0.75);
+      border-right: 1px solid rgba(226, 232, 240, 0.7);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 1px 3px 0 rgba(15, 23, 42, 0.03);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reflective-subcard:hover, .glass-subcard:hover {
+      background: rgba(255, 255, 255, 0.85);
+      border-top-color: #FFFFFF;
+      box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .reflective-glint {
+      position: relative;
+      overflow: hidden;
+    }
+    .reflective-glint::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.6) 20%, 
+        rgba(255, 255, 255, 1) 50%, 
+        rgba(255, 255, 255, 0.6) 80%, 
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.82) !important;
+      backdrop-filter: blur(24px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+      box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.8), 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+    }
+
+    .glass-sidebar {
+      background: rgba(255, 255, 255, 0.78) !important;
+      backdrop-filter: blur(24px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+      border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
+      box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .reflective-pill {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(15, 23, 42, 0.03);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reflective-pill:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(203, 213, 225, 0.9);
+      box-shadow: inset 0 1px 1px 0 #FFFFFF, 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+    .reflective-pill-active {
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+      color: #FFFFFF !important;
+      border-color: #0284C7 !important;
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 12px -2px rgba(2, 132, 199, 0.3) !important;
+    }
+
+    .reflective-input {
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1px solid rgba(226, 232, 240, 0.85) !important;
+      box-shadow: inset 0 1px 2px 0 rgba(15, 23, 42, 0.03) !important;
+      transition: all 0.2s ease !important;
+    }
+    .reflective-input:focus {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-color: #0284C7 !important;
+      box-shadow: inset 0 1px 2px 0 rgba(15, 23, 42, 0.03), 0 0 0 3px rgba(2, 132, 199, 0.12) !important;
+    }
+
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #F1F5F9; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
   </style>
 </head>
-<body class="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans">
+<body class="min-h-screen text-slate-900 flex flex-col font-sans">
 
   <!-- CRITICAL EMERGENCY BANNER -->
-  <aside class="bg-red-600 border-b border-red-700 text-white px-4 py-2.5 z-40 shadow-sm">
+  <aside class="bg-red-50/90 backdrop-blur-md border-b border-red-200/80 text-red-950 px-4 py-2.5 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <span class="w-2.5 h-2.5 rounded-full bg-white animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
         <div class="text-sm">
-          <span class="font-extrabold uppercase text-white mr-2 tracking-wide">[CRITICAL EMERGENCY PROTOCOL]</span>
-          <span class="text-red-50">Suspecting acute stroke? Facial droop, arm weakness, or slurred speech? <strong>DO NOT WAIT. Call 911 / 112 / 108 immediately.</strong></span>
+          <span class="font-extrabold uppercase text-red-700 mr-2 tracking-wide">[CRITICAL EMERGENCY PROTOCOL]</span>
+          <span class="text-slate-800">Suspecting acute stroke? Facial droop, arm weakness, or slurred speech? <strong>DO NOT WAIT. Call 911 / 112 / 108 immediately.</strong></span>
         </div>
       </div>
-      <button onclick="switchTab('emergency')" class="px-3.5 py-1.5 text-xs font-bold bg-white hover:bg-red-50 text-red-700 rounded-lg shadow-sm transition-colors heading-rounded">
+      <button onclick="switchTab('emergency')" class="px-3.5 py-1.5 text-xs font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl shadow-sm transition-all heading-rounded border-t border-red-400/40">
         F.A.S.T. Center &rarr;
       </button>
     </div>
   </aside>
 
-  <!-- COMMAND HEADER -->
-  <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 lg:px-6 flex items-center justify-between shadow-sm">
+  <!-- COMMAND HEADER (Frosted Reflective Glass) -->
+  <header class="sticky top-0 z-30 h-16 glass-header px-4 lg:px-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center font-bold text-white shadow-sm">
         ⚡
@@ -86,7 +200,7 @@
           <span class="font-extrabold text-base lg:text-lg tracking-tight text-slate-900 heading-rounded">
             STROKE<span class="text-sky-600">WATCH</span>
           </span>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 font-semibold">
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 border border-sky-200 text-sky-800 font-semibold shadow-sm">
             AI 2.4
           </span>
         </div>
@@ -98,24 +212,24 @@
     </div>
 
     <!-- Live UTC Clock -->
-    <div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700">
+    <div class="hidden xl:flex items-center gap-2 px-3.5 py-1.5 rounded-xl reflective-pill text-xs font-mono text-slate-700">
       <span class="text-sky-600">⏱</span>
       <span id="utcClockDisplay">SYNCHRONIZING UTC...</span>
     </div>
 
     <!-- Actions -->
     <div class="flex items-center gap-2.5">
-      <select id="regionSelect" onchange="changeRegion(this.value)" class="bg-slate-50 border border-slate-200 text-xs text-slate-800 font-medium rounded-lg px-3 py-1.5 cursor-pointer focus:outline-none focus:border-sky-500">
+      <select id="regionSelect" onchange="changeRegion(this.value)" class="reflective-pill text-xs text-slate-800 font-medium rounded-xl px-3 py-1.5 cursor-pointer focus:outline-none">
         <option value="global">🌐 Global Baseline</option>
         <option value="india">🇮🇳 India Surveillance</option>
         <option value="usa">🇺🇸 United States</option>
         <option value="china">🇨🇳 China</option>
         <option value="uk">🇬🇧 United Kingdom</option>
       </select>
-      <button onclick="toggleDisclaimer(true)" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-semibold text-slate-700 transition-colors">
+      <button onclick="toggleDisclaimer(true)" class="px-3.5 py-1.5 rounded-xl reflective-pill text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors">
         Methodology
       </button>
-      <button onclick="switchTab('emergency')" class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-xs font-bold text-white shadow-sm transition-colors heading-rounded">
+      <button onclick="switchTab('emergency')" class="px-3.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-xs font-bold text-white shadow-sm transition-all heading-rounded border-t border-red-400/40">
         FAST 911 / 112
       </button>
     </div>
@@ -123,47 +237,47 @@
 
   <!-- BODY WITH SIDEBAR AND MAIN CONTENT -->
   <div class="flex-1 flex relative">
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white border-r border-slate-200 p-3 space-y-1 hidden md:block">
+    <!-- SIDEBAR (Frosted Reflective Glass) -->
+    <aside class="w-64 glass-sidebar p-3 space-y-1 hidden md:block">
       <div class="px-3 pb-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
         <span>INTELLIGENCE MODULES</span>
         <span class="text-emerald-600 font-bold">● LIVE</span>
       </div>
 
       <nav class="space-y-1">
-        <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="dashboard">
+        <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="dashboard">
           <span>📊</span>
           <span>Command Dashboard</span>
         </button>
-        <button onclick="switchTab('map')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="map">
+        <button onclick="switchTab('map')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="map">
           <span>🌐</span>
           <span>Global Surveillance Map</span>
         </button>
-        <button onclick="switchTab('india')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="india">
+        <button onclick="switchTab('india')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="india">
           <span>🇮🇳</span>
           <span>India Stroke Intelligence</span>
         </button>
-        <button onclick="switchTab('ai-chat')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="ai-chat">
+        <button onclick="switchTab('ai-chat')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="ai-chat">
           <span>🤖</span>
           <span>StrokeSense AI Assistant</span>
         </button>
-        <button onclick="switchTab('risk-lab')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="risk-lab">
+        <button onclick="switchTab('risk-lab')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="risk-lab">
           <span>❤️</span>
           <span>Risk Awareness Lab</span>
         </button>
-        <button onclick="switchTab('emergency')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="emergency">
+        <button onclick="switchTab('emergency')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="emergency">
           <span>🚨</span>
           <span>FAST Emergency Center</span>
         </button>
-        <button onclick="switchTab('analytics')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="analytics">
+        <button onclick="switchTab('analytics')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="analytics">
           <span>📈</span>
           <span>Analytics & Trends</span>
         </button>
-        <button onclick="switchTab('prediction')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="prediction">
+        <button onclick="switchTab('prediction')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="prediction">
           <span>🎛️</span>
           <span>What-If? Simulator</span>
         </button>
-        <button onclick="switchTab('research')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-slate-100 transition-all heading-rounded" data-tab="research">
+        <button onclick="switchTab('research')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-semibold text-slate-700 hover:bg-white/60 transition-all heading-rounded" data-tab="research">
           <span>📰</span>
           <span>News & Impact Stories</span>
         </button>
@@ -177,16 +291,16 @@
         <!-- TAB 1: DASHBOARD -->
         <section id="tab-dashboard" class="tab-content space-y-8">
           <!-- LIVE ESTIMATED STROKE COUNTER -->
-          <div class="relative overflow-hidden rounded-2xl bg-white border border-slate-200/90 p-5 sm:p-7 shadow-sm">
-            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-100">
+          <div class="relative overflow-hidden rounded-2xl glass-panel reflective-glint p-5 sm:p-7 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-200/80">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600 text-lg">
+                <div class="w-10 h-10 rounded-xl bg-sky-50/90 border border-sky-200/90 flex items-center justify-center text-sky-600 text-lg shadow-sm">
                   ⚡
                 </div>
                 <div>
                   <h2 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2 heading-rounded">
                     <span>ESTIMATED LIVE STROKE COUNTER</span>
-                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 font-semibold">SURVEILLANCE CLOCK</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 font-semibold shadow-sm">SURVEILLANCE CLOCK</span>
                   </h2>
                   <p class="text-xs text-slate-500">Continuous mathematical approximation based on verified annual incidence rates.</p>
                 </div>
@@ -194,22 +308,22 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-6">
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="p-4 rounded-xl reflective-subcard">
                 <div class="text-xs font-mono uppercase text-slate-500 font-medium">Year-To-Date Estimated Cases</div>
                 <div id="liveYTDStrokes" class="text-3xl font-extrabold font-mono text-sky-700 mt-1">Calculating...</div>
                 <div class="text-[11px] text-slate-500 mt-1">Cumulative since Jan 1 (UTC)</div>
               </div>
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="p-4 rounded-xl reflective-subcard">
                 <div class="text-xs font-mono uppercase text-slate-500 font-medium">Today's Estimated Cases</div>
                 <div id="liveTodayStrokes" class="text-3xl font-extrabold font-mono text-slate-900 mt-1">Calculating...</div>
                 <div id="strokeCadenceText" class="text-[11px] text-slate-500 mt-1">~1 event every 2.58s</div>
               </div>
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="p-4 rounded-xl reflective-subcard">
                 <div class="text-xs font-mono uppercase text-red-600 font-medium">YTD Estimated Fatalities</div>
                 <div id="liveYTDDeaths" class="text-3xl font-extrabold font-mono text-red-600 mt-1">Calculating...</div>
                 <div id="deathCadenceText" class="text-[11px] text-slate-500 mt-1">~1 fatality every 4.81s</div>
               </div>
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+              <div class="p-4 rounded-xl reflective-subcard">
                 <div class="text-xs font-mono uppercase text-slate-500 font-medium">Annual Baseline Total</div>
                 <div id="annualBaselineTotal" class="text-2xl font-bold font-mono text-sky-700 mt-1">12,224,000</div>
                 <div id="baselineSourceText" class="text-[10px] text-slate-500 mt-1">GBD 2021 / WSO 2023 Baseline</div>
@@ -217,7 +331,7 @@
             </div>
 
             <!-- MANDATORY DISCLOSURE NOTICE -->
-            <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-900 leading-relaxed">
+            <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 backdrop-blur-sm text-xs text-amber-900 leading-relaxed">
               <strong class="text-amber-800 uppercase mr-1">[DATA METHODOLOGY NOTICE]:</strong>
               Estimated number based on historical annual statistics – not a real-time hospital case count.
             </div>
@@ -225,48 +339,50 @@
 
           <!-- STROKE CLOCK & DAILY INSIGHT WIDGETS -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="glass-panel rounded-2xl p-5">
-              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-200/80">
                 <h3 class="text-sm font-bold text-slate-900 tracking-wide heading-rounded">THE STROKE CLOCK</h3>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 font-semibold">GLOBAL CADENCE</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 font-semibold shadow-sm">GLOBAL CADENCE</span>
               </div>
               <div class="my-4 grid grid-cols-2 gap-4">
-                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="p-3.5 rounded-xl reflective-subcard">
                   <div class="text-xs font-mono text-sky-700 font-semibold">NEW STROKE EVENT</div>
                   <div class="text-2xl font-mono font-extrabold text-slate-900 mt-1">1 every 2.58s</div>
-                  <div class="w-full h-1.5 bg-slate-200 rounded-full mt-3 overflow-hidden">
-                    <div id="strokeProgressBar" class="h-full bg-sky-600 w-0 transition-all duration-100"></div>
+                  <div class="w-full h-1.5 bg-slate-200/80 rounded-full mt-3 overflow-hidden">
+                    <div id="strokeProgressBar" class="h-full bg-sky-600 w-0 transition-all duration-100 shadow-sm"></div>
                   </div>
                   <p class="text-[10px] text-slate-500 mt-2">~23 new cases / minute worldwide</p>
                 </div>
-                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="p-3.5 rounded-xl reflective-subcard">
                   <div class="text-xs font-mono text-red-600 font-semibold">FATALITY CADENCE</div>
                   <div class="text-2xl font-mono font-extrabold text-red-600 mt-1">1 every 4.81s</div>
-                  <div class="w-full h-1.5 bg-slate-200 rounded-full mt-3 overflow-hidden">
-                    <div id="deathProgressBar" class="h-full bg-red-500 w-0 transition-all duration-100"></div>
+                  <div class="w-full h-1.5 bg-slate-200/80 rounded-full mt-3 overflow-hidden">
+                    <div id="deathProgressBar" class="h-full bg-red-500 w-0 transition-all duration-100 shadow-sm"></div>
                   </div>
                   <p class="text-[10px] text-slate-500 mt-2">~12.5 deaths / minute worldwide</p>
                 </div>
               </div>
-              <div class="text-[11px] text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
+              <div class="text-[11px] text-slate-500 border-t border-slate-200/80 pt-2 flex justify-between">
                 <span>Strokes estimated during this active visit:</span>
                 <span id="visitStrokesCount" class="font-mono text-sky-700 font-bold">+0</span>
               </div>
             </div>
 
             <!-- DAILY HEALTH INSIGHT -->
-            <div class="glass-panel rounded-2xl p-5 flex flex-col justify-between">
+            <div class="glass-panel reflective-glint rounded-2xl p-5 flex flex-col justify-between shadow-sm">
               <div>
-                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-200/80">
                   <h3 class="text-sm font-bold text-slate-900 tracking-wide heading-rounded">DAILY VERIFIED HEALTH INSIGHT</h3>
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-semibold">CARDIOVASCULAR</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 text-blue-800 border border-blue-200/80 font-semibold shadow-sm">CARDIOVASCULAR</span>
                 </div>
-                <h4 class="text-base font-bold text-sky-700 mt-4 heading-rounded">The 10 mmHg Blood Pressure Dividend</h4>
-                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                  "Lowering your systolic blood pressure by just 10 mmHg slashes your lifelong stroke risk by approximately 27%, regardless of baseline age."
-                </p>
+                <div class="mt-4 p-4 rounded-xl reflective-subcard">
+                  <h4 class="text-base font-bold text-sky-700 heading-rounded">The 10 mmHg Blood Pressure Dividend</h4>
+                  <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                    "Lowering your systolic blood pressure by just 10 mmHg slashes your lifelong stroke risk by approximately 27%, regardless of baseline age."
+                  </p>
+                </div>
               </div>
-              <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+              <div class="pt-3 border-t border-slate-200/80 text-[11px] text-slate-500">
                 Source: Lancet Meta-Analysis of 48 Randomized Trials
               </div>
             </div>
@@ -276,85 +392,85 @@
           <div class="space-y-4">
             <h2 class="text-base sm:text-lg font-bold text-slate-900 tracking-wide heading-rounded">CORE GLOBAL STROKE BENCHMARKS</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              <div class="glass-panel rounded-2xl p-5">
-                <div class="flex justify-between items-center text-xs">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
+                <div className="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">Annual Incident Strokes</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-sky-50 text-sky-700 border border-sky-200 font-medium">Modelled Estimate</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-sky-800 border border-sky-200/80 font-medium shadow-sm">Modelled Estimate</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-slate-900 mt-2">12.22M</div>
                 <div class="text-xs text-slate-500">New cases per year</div>
                 <p class="text-xs text-slate-600 mt-2">Estimated first-ever and recurrent acute stroke episodes worldwide.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: GBD 2021 Stroke Collaborators & WSO</div>
                   <div>Last Audit: October 2024</div>
                 </div>
               </div>
 
-              <div class="glass-panel rounded-2xl p-5">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">Annual Stroke Mortality</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-red-50 text-red-700 border border-red-200 font-medium">Modelled Estimate</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-red-800 border border-red-200/80 font-medium shadow-sm">Modelled Estimate</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-red-600 mt-2">6.55M</div>
                 <div class="text-xs text-slate-500">Deaths per year</div>
                 <p class="text-xs text-slate-600 mt-2">2nd leading cause of death globally, accounting for ~11.6% of all deaths.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: WHO Global Health Estimates</div>
                   <div>Last Audit: September 2024</div>
                 </div>
               </div>
 
-              <div class="glass-panel rounded-2xl p-5">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">People Living with Stroke</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-sky-50 text-sky-700 border border-sky-200 font-medium">Prevalence Baseline</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-sky-800 border border-sky-200/80 font-medium shadow-sm">Prevalence Baseline</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-sky-700 mt-2">101.5M</div>
                 <div class="text-xs text-slate-500">Living survivors worldwide</div>
                 <p class="text-xs text-slate-600 mt-2">Individuals living with post-stroke motor, cognitive, or sensory disabilities.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: World Stroke Organization Factsheet</div>
                   <div>Last Audit: July 2024</div>
                 </div>
               </div>
 
-              <div class="glass-panel rounded-2xl p-5">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">Disability Burden (DALYs)</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-amber-50 text-amber-700 border border-amber-200 font-medium">Modelled Estimate</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-amber-800 border border-amber-200/80 font-medium shadow-sm">Modelled Estimate</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-amber-700 mt-2">143.2M</div>
                 <div class="text-xs text-slate-500">DALYs lost per year</div>
                 <p class="text-xs text-slate-600 mt-2">Sum of premature life lost and years lived with long-term disability.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: IHME Global Burden of Disease</div>
                   <div>Last Audit: August 2024</div>
                 </div>
               </div>
 
-              <div class="glass-panel rounded-2xl p-5">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">Most Affected Age Cohort</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">Verified Registry</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-emerald-800 border border-emerald-200/80 font-medium shadow-sm">Verified Registry</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-slate-900 mt-2">&ge; 65 yrs (68%)</div>
                 <div class="text-xs text-slate-500">Peak demographic share</div>
                 <p class="text-xs text-slate-600 mt-2">While most cases occur &ge;65, incidence in adults &lt;55 surged +18.2% in LMICs.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: Lancet Neurology Cohort Audit</div>
                   <div>Last Audit: 2024</div>
                 </div>
               </div>
 
-              <div class="glass-panel rounded-2xl p-5">
+              <div class="glass-panel reflective-glint rounded-2xl p-5 shadow-sm">
                 <div class="flex justify-between items-center text-xs">
                   <span class="text-slate-700 uppercase font-bold text-[11px]">Modifiable Risk Fraction</span>
-                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">PAF Assessment</span>
+                  <span class="px-2 py-0.5 rounded-full text-[9px] bg-white/80 text-emerald-800 border border-emerald-200/80 font-medium shadow-sm">PAF Assessment</span>
                 </div>
                 <div class="text-3xl font-extrabold font-mono text-emerald-700 mt-2">87.0%</div>
                 <div class="text-xs text-slate-500">Potentially Preventable</div>
                 <p class="text-xs text-slate-600 mt-2">87% of stroke disability is linked to modifiable lifestyle and metabolic factors.</p>
-                <div class="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-500 space-y-1">
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[10px] text-slate-500 space-y-1">
                   <div>Source: Lancet Commission on Stroke</div>
                   <div>Last Audit: November 2024</div>
                 </div>
@@ -365,7 +481,7 @@
 
         <!-- TAB 2: GLOBAL SURVEILLANCE MAP -->
         <section id="tab-map" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-xl font-bold text-slate-900 mb-2 heading-rounded">GLOBAL STROKE SURVEILLANCE REGISTRY</h2>
             <p class="text-xs text-slate-600 mb-6">Explore national stroke incidence, mortality, prevalence, and disability metrics across 204 territories.</p>
 
@@ -377,7 +493,7 @@
 
         <!-- TAB 3: INDIA STROKE INTELLIGENCE -->
         <section id="tab-india" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-2xl font-bold text-slate-900 heading-rounded">INDIA STROKE INTELLIGENCE COMMAND</h2>
             <p class="text-xs sm:text-sm text-slate-600 mt-2 max-w-3xl leading-relaxed">
               India records approximately <strong>1.85 million new stroke episodes</strong> annually.
@@ -386,22 +502,22 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="p-4 rounded-xl glass-panel">
+            <div class="p-4 rounded-xl glass-panel reflective-glint">
               <div class="text-xs font-mono text-slate-500 uppercase font-semibold">Annual Incident Strokes</div>
               <div class="text-2xl font-bold font-mono text-sky-700 mt-1">1.85 Million</div>
               <div class="text-[10px] text-slate-500 mt-1">~5,068 new strokes daily</div>
             </div>
-            <div class="p-4 rounded-xl glass-panel">
+            <div class="p-4 rounded-xl glass-panel reflective-glint">
               <div class="text-xs font-mono text-red-600 uppercase font-semibold">Annual Stroke Mortality</div>
               <div class="text-2xl font-bold font-mono text-red-600 mt-1">720,000 Deaths</div>
               <div class="text-[10px] text-slate-500 mt-1">~1,972 deaths daily</div>
             </div>
-            <div class="p-4 rounded-xl glass-panel">
+            <div class="p-4 rounded-xl glass-panel reflective-glint">
               <div class="text-xs font-mono text-amber-700 uppercase font-semibold">Hemorrhagic Proportion</div>
               <div class="text-2xl font-bold font-mono text-amber-700 mt-1">31.5%</div>
               <div class="text-[10px] text-slate-500 mt-1">vs ~13% Western baseline</div>
             </div>
-            <div class="p-4 rounded-xl glass-panel">
+            <div class="p-4 rounded-xl glass-panel reflective-glint">
               <div class="text-xs font-mono text-blue-700 uppercase font-semibold">Living Stroke Survivors</div>
               <div class="text-2xl font-bold font-mono text-blue-700 mt-1">7.8 Million</div>
               <div class="text-[10px] text-slate-500 mt-1">24.2M DALYs lost</div>
@@ -409,7 +525,7 @@
           </div>
 
           <!-- 6 Sentinel Registries -->
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h3 class="text-base font-bold text-slate-900 mb-4 heading-rounded">ICMR-NCDIR SENTINEL REGISTRIES</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="indiaRegistriesGrid">
               <!-- Populated via JS -->
@@ -419,8 +535,8 @@
 
         <!-- TAB 4: STROKESENSE AI ASSISTANT -->
         <section id="tab-ai-chat" class="tab-content hidden space-y-6">
-          <div class="rounded-2xl glass-panel overflow-hidden flex flex-col h-[650px]">
-            <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <div class="rounded-2xl glass-panel reflective-glint overflow-hidden flex flex-col h-[650px] shadow-sm">
+            <div class="p-4 bg-white/70 backdrop-blur-md border-b border-slate-200/80 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">🤖</span>
                 <div>
@@ -431,31 +547,31 @@
             </div>
 
             <!-- Messages Box -->
-            <div id="aiChatBox" class="flex-1 p-5 overflow-y-auto space-y-4 bg-white">
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 max-w-2xl leading-relaxed">
+            <div id="aiChatBox" class="flex-1 p-5 overflow-y-auto space-y-4 bg-white/40">
+              <div class="p-4 rounded-2xl reflective-subcard text-xs sm:text-sm text-slate-700 max-w-2xl leading-relaxed shadow-sm">
                 Hello, I am <strong>StrokeSense AI</strong>. Ask me about stroke definition, ischemic vs hemorrhagic differences, GBD risk factors, FAST recognition, or global and Indian statistics.
               </div>
             </div>
 
             <!-- Quick Suggestions -->
-            <div class="p-2.5 bg-slate-50 border-t border-slate-200 flex gap-2 overflow-x-auto text-xs">
-              <button onclick="sendQuickPrompt('What is a stroke?')" class="px-3 py-1 bg-white border border-slate-200 rounded-full hover:border-sky-500 text-slate-700 transition-colors font-medium">What is stroke?</button>
-              <button onclick="sendQuickPrompt('Difference between ischemic and hemorrhagic stroke?')" class="px-3 py-1 bg-white border border-slate-200 rounded-full hover:border-sky-500 text-slate-700 transition-colors font-medium">Ischemic vs Hemorrhagic</button>
-              <button onclick="sendQuickPrompt('Which risk factors contribute most to stroke?')" class="px-3 py-1 bg-white border border-slate-200 rounded-full hover:border-sky-500 text-slate-700 transition-colors font-medium">Top Risk Factors</button>
-              <button onclick="sendQuickPrompt('How do I recognize stroke symptoms?')" class="px-3 py-1 bg-white border border-slate-200 rounded-full hover:border-sky-500 text-slate-700 transition-colors font-medium">FAST Symptoms</button>
+            <div class="p-2.5 bg-white/50 backdrop-blur-md border-t border-slate-200/80 flex gap-2 overflow-x-auto text-xs">
+              <button onclick="sendQuickPrompt('What is a stroke?')" class="px-3.5 py-1 reflective-pill text-slate-700 hover:text-slate-900 font-medium">What is stroke?</button>
+              <button onclick="sendQuickPrompt('Difference between ischemic and hemorrhagic stroke?')" class="px-3.5 py-1 reflective-pill text-slate-700 hover:text-slate-900 font-medium">Ischemic vs Hemorrhagic</button>
+              <button onclick="sendQuickPrompt('Which risk factors contribute most to stroke?')" class="px-3.5 py-1 reflective-pill text-slate-700 hover:text-slate-900 font-medium">Top Risk Factors</button>
+              <button onclick="sendQuickPrompt('How do I recognize stroke symptoms?')" class="px-3.5 py-1 reflective-pill text-slate-700 hover:text-slate-900 font-medium">FAST Symptoms</button>
             </div>
 
             <!-- Input Bar -->
-            <div class="p-3 bg-white border-t border-slate-200 flex gap-2">
-              <input id="chatInput" type="text" placeholder="Type your stroke question here..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-xs text-slate-900 focus:outline-none focus:border-sky-500 focus:bg-white transition-colors">
-              <button onclick="sendChatMessage()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm transition-colors heading-rounded">Send</button>
+            <div class="p-3.5 bg-white/70 backdrop-blur-md border-t border-slate-200/80 flex gap-2">
+              <input id="chatInput" type="text" placeholder="Type your stroke question here..." class="flex-1 reflective-input rounded-xl px-4 py-2 text-xs text-slate-900 focus:outline-none">
+              <button onclick="sendChatMessage()" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all heading-rounded border-t border-sky-400/40">Send</button>
             </div>
           </div>
         </section>
 
         <!-- TAB 5: RISK AWARENESS LAB -->
         <section id="tab-risk-lab" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-xl font-bold text-slate-900 mb-2 heading-rounded">STROKE RISK AWARENESS LAB</h2>
             <p class="text-xs text-slate-600 mb-6">Interactive educational self-check across primary modifiable stroke risk factors.</p>
 
@@ -473,22 +589,22 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="p-5 rounded-2xl glass-panel border border-slate-200">
+            <div class="p-5 rounded-2xl glass-panel reflective-glint">
               <div class="text-4xl font-black text-sky-600 font-mono">F</div>
               <div class="text-base font-bold text-slate-900 mt-1 heading-rounded">FACE DROOPING</div>
               <p class="text-xs text-slate-600 mt-2">Ask the person to smile. Does one side of the face droop down or look uneven?</p>
             </div>
-            <div class="p-5 rounded-2xl glass-panel border border-slate-200">
+            <div class="p-5 rounded-2xl glass-panel reflective-glint">
               <div class="text-4xl font-black text-blue-600 font-mono">A</div>
               <div class="text-base font-bold text-slate-900 mt-1 heading-rounded">ARM WEAKNESS</div>
               <p class="text-xs text-slate-600 mt-2">Ask the person to raise both arms. Does one arm drift downward or feel clumsy?</p>
             </div>
-            <div class="p-5 rounded-2xl glass-panel border border-slate-200">
+            <div class="p-5 rounded-2xl glass-panel reflective-glint">
               <div class="text-4xl font-black text-amber-600 font-mono">S</div>
               <div class="text-base font-bold text-slate-900 mt-1 heading-rounded">SPEECH DIFFICULTY</div>
               <p class="text-xs text-slate-600 mt-2">Ask them to repeat a simple sentence. Are the words slurred, garbled, or strange?</p>
             </div>
-            <div class="p-5 rounded-2xl glass-panel border border-red-200 bg-red-50/50">
+            <div class="p-5 rounded-2xl glass-panel reflective-glint bg-red-50/70 border-red-200">
               <div class="text-4xl font-black text-red-600 font-mono">T</div>
               <div class="text-base font-bold text-red-950 mt-1 heading-rounded">TIME TO CALL 911 / 112</div>
               <p class="text-xs text-red-900 mt-2">Every second counts. 1.9 million neurons die every minute during ischemic stroke.</p>
@@ -498,13 +614,13 @@
 
         <!-- TAB 7: ANALYTICS -->
         <section id="tab-analytics" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-xl font-bold text-slate-900 mb-2 heading-rounded">NEUROVASCULAR EPIDEMIOLOGICAL TRENDS (1990 – 2035)</h2>
             <p class="text-xs text-slate-600 mb-6">Historical global cases rose from 7.9M in 1990 to 12.2M in 2023, projected to reach 15.2M by 2035.</p>
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
                 <thead>
-                  <tr class="border-b border-slate-200 text-slate-500 font-mono text-[10px] uppercase">
+                  <tr class="border-b border-slate-200/80 text-slate-500 font-mono text-[10px] uppercase">
                     <th class="pb-2">Year</th>
                     <th class="pb-2">Global Cases (M)</th>
                     <th class="pb-2">Global Deaths (M)</th>
@@ -522,7 +638,7 @@
 
         <!-- TAB 8: WHAT-IF SIMULATOR -->
         <section id="tab-prediction" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-xl font-bold text-slate-900 mb-2 heading-rounded">WHAT-IF? RISK MITIGATION SIMULATOR</h2>
             <p class="text-xs text-slate-600 mb-6">Adjust hypothetical global risk reductions to simulate cases and deaths averted by 2035.</p>
 
@@ -537,7 +653,7 @@
                   <input type="range" min="0" max="60" value="20" oninput="updateSimulation()" id="smokingSlider" class="w-full accent-red-600">
                 </div>
               </div>
-              <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="p-5 rounded-xl reflective-subcard space-y-2">
                 <div class="text-xs text-slate-500 uppercase font-mono font-semibold">Cumulative Cases Averted by 2035:</div>
                 <div id="simCasesAverted" class="text-3xl font-black font-mono text-emerald-700">14.8M</div>
                 <div class="text-[11px] text-slate-500">Based on GBD 2021 Joint Population Attributable Fraction modeling.</div>
@@ -548,7 +664,7 @@
 
         <!-- TAB 9: RESEARCH & STORIES -->
         <section id="tab-research" class="tab-content hidden space-y-6">
-          <div class="p-6 rounded-2xl glass-panel">
+          <div class="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
             <h2 class="text-xl font-bold text-slate-900 mb-2 heading-rounded">LATEST RESEARCH & CASE LOGS</h2>
             <p class="text-xs text-slate-600 mb-6">Peer-reviewed publications from The Lancet Neurology, NEJM, and ICMR-NCDIR.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="researchFeedContainer">
@@ -562,14 +678,14 @@
   </div>
 
   <!-- METHODOLOGY MODAL -->
-  <div id="disclaimerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-xl text-slate-700 space-y-4 shadow-xl">
+  <div id="disclaimerModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="glass-panel reflective-glint rounded-2xl p-6 max-w-xl text-slate-700 space-y-4 shadow-2xl">
       <h3 class="text-lg font-bold text-slate-900 heading-rounded">Clinical & Methodology Transparency</h3>
       <p class="text-xs text-slate-600 leading-relaxed">
         StrokeWatch AI is an educational surveillance platform. The continuous live estimated counters are mathematical approximations derived from GBD 2021 and ICMR annual baselines, NOT real-time hospital case registries.
       </p>
       <div class="flex justify-end">
-        <button onclick="toggleDisclaimer(false)" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm transition-colors heading-rounded">
+        <button onclick="toggleDisclaimer(false)" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm transition-colors heading-rounded border-t border-sky-400/40">
           I Acknowledge
         </button>
       </div>
@@ -586,10 +702,10 @@
 
       document.querySelectorAll('.nav-btn').forEach(btn => {
         if (btn.getAttribute('data-tab') === tabId) {
-          btn.classList.add('bg-sky-50', 'text-sky-700', 'border', 'border-sky-200');
+          btn.classList.add('bg-white/90', 'text-sky-900', 'border', 'border-sky-200/90', 'shadow-xs');
           btn.classList.remove('text-slate-700');
         } else {
-          btn.classList.remove('bg-sky-50', 'text-sky-700', 'border', 'border-sky-200');
+          btn.classList.remove('bg-white/90', 'text-sky-900', 'border', 'border-sky-200/90', 'shadow-xs');
           btn.classList.add('text-slate-700');
         }
       });
@@ -663,7 +779,7 @@
     const tbody = document.getElementById('historicalTableBody');
     trends.forEach(t => {
       const tr = document.createElement('tr');
-      tr.className = 'hover:bg-slate-50 transition-colors';
+      tr.className = 'hover:bg-white/60 transition-colors';
       tr.innerHTML = `<td class="py-2.5 text-slate-900 font-bold">${t.y}</td><td class="py-2.5 text-sky-700 font-semibold">${t.g}M</td><td class="py-2.5 text-red-600 font-semibold">${t.d}M</td><td class="py-2.5 text-amber-700 font-semibold">${t.daly}M</td><td class="py-2.5 text-slate-900">${t.ind}M</td>`;
       tbody.appendChild(tr);
     });
@@ -680,8 +796,8 @@
     const regGrid = document.getElementById('indiaRegistriesGrid');
     registries.forEach(r => {
       const div = document.createElement('div');
-      div.className = 'p-4 rounded-xl bg-slate-50 border border-slate-200/80';
-      div.innerHTML = `<div class="flex justify-between items-center"><strong class="text-slate-900 text-sm heading-rounded">${r.city}</strong><span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white border border-slate-200 text-sky-700 font-medium">${r.type}</span></div><div class="text-xs text-slate-500 mt-1">${r.state}</div><div class="text-base font-bold font-mono text-sky-700 mt-2">AAIR: ${r.aair}/100k</div><div class="text-xs font-mono text-red-600 mt-0.5 font-medium">Hemorrhagic: ${r.hem}%</div>`;
+      div.className = 'p-4 rounded-xl reflective-subcard';
+      div.innerHTML = `<div class="flex justify-between items-center"><strong class="text-slate-900 text-sm heading-rounded">${r.city}</strong><span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/90 border border-slate-200 text-sky-700 font-medium">${r.type}</span></div><div class="text-xs text-slate-500 mt-1">${r.state}</div><div class="text-base font-bold font-mono text-sky-700 mt-2">AAIR: ${r.aair}/100k</div><div class="text-xs font-mono text-red-600 mt-0.5 font-medium">Hemorrhagic: ${r.hem}%</div>`;
       regGrid.appendChild(div);
     });
 
@@ -693,7 +809,7 @@
       input.value = '';
 
       const box = document.getElementById('aiChatBox');
-      box.innerHTML += `<div class="p-3 rounded-xl bg-sky-600 text-white text-xs max-w-md ml-auto text-right font-medium">${text}</div>`;
+      box.innerHTML += `<div class="p-3.5 rounded-xl bg-sky-600 text-white text-xs max-w-md ml-auto text-right font-medium shadow-sm">${text}</div>`;
 
       // Medical responses
       setTimeout(() => {
@@ -704,7 +820,7 @@
         } else if (low.includes('difference') || low.includes('ischemic')) {
           reply = "Ischemic stroke (~62% globally) occurs from arterial blockage (thrombus/embolus). Hemorrhagic stroke (~28% globally, ~32% in India) occurs from vessel rupture, heavily driven by uncontrolled hypertension.";
         }
-        box.innerHTML += `<div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 max-w-xl leading-relaxed">${reply}</div>`;
+        box.innerHTML += `<div class="p-4 rounded-xl reflective-subcard text-xs text-slate-700 max-w-xl leading-relaxed shadow-sm">${reply}</div>`;
         box.scrollTop = box.scrollHeight;
       }, 400);
     }

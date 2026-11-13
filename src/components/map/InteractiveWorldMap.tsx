@@ -51,7 +51,7 @@ export const InteractiveWorldMap: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Control Panel: Filters, Metric, Year, Search */}
-      <div className="p-4 sm:p-5 rounded-2xl glass-panel border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      <div className="p-4 sm:p-5 rounded-2xl glass-panel reflective-glint flex flex-wrap items-center justify-between gap-4 shadow-sm">
         {/* Metric Selector Pills */}
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-semibold text-slate-500 mr-1 flex items-center gap-1.5">
@@ -64,10 +64,10 @@ export const InteractiveWorldMap: React.FC = () => {
               <button
                 key={metric}
                 onClick={() => setSelectedMetric(metric)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition-all ${
                   isSelected
-                    ? 'bg-slate-900 text-white font-bold shadow-sm'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                    ? 'reflective-pill-active font-bold shadow-sm'
+                    : 'reflective-pill text-slate-700 hover:text-slate-900'
                 }`}
               >
                 {METRIC_LABELS[metric].label}
@@ -79,7 +79,7 @@ export const InteractiveWorldMap: React.FC = () => {
         {/* Right Tools: Year Selector & Search */}
         <div className="flex flex-wrap items-center gap-3">
           {/* Year Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+          <div className="flex items-center gap-1.5 reflective-pill px-3 py-1.5 rounded-xl text-xs">
             <Calendar className="w-3.5 h-3.5 text-sky-600" />
             <select
               value={selectedYear}
@@ -103,16 +103,16 @@ export const InteractiveWorldMap: React.FC = () => {
               placeholder="Search country or ISO..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 w-44 sm:w-56"
+              className="pl-8 pr-3 py-1.5 rounded-xl reflective-input text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-44 sm:w-56"
             />
           </div>
         </div>
       </div>
 
       {/* Command Map Canvas */}
-      <div className="rounded-2xl glass-panel border border-slate-200 p-5 sm:p-7 flex flex-col justify-between">
+      <div className="rounded-2xl glass-panel reflective-glint p-5 sm:p-7 flex flex-col justify-between shadow-sm">
         {/* Map Header */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200/80">
           <div className="flex items-center gap-2.5">
             <Globe2 className="w-5 h-5 text-sky-600" />
             <div>
@@ -129,15 +129,15 @@ export const InteractiveWorldMap: React.FC = () => {
           <div className="flex items-center gap-2 text-xs">
             <span className="text-slate-500">Scale:</span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded bg-sky-500 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-sky-500 inline-block" />
               <span className="text-slate-700">Lower</span>
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded bg-amber-500 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" />
               <span className="text-slate-700">Moderate</span>
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded bg-red-600 inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block" />
               <span className="text-slate-700">Elevated</span>
             </span>
           </div>
@@ -159,10 +159,10 @@ export const InteractiveWorldMap: React.FC = () => {
                 <div
                   key={country.iso}
                   onClick={() => setActiveCountry(country)}
-                  className={`cursor-pointer p-3.5 rounded-xl border transition-all duration-200 ${
+                  className={`cursor-pointer p-3.5 rounded-xl transition-all duration-200 ${
                     isSelected
-                      ? 'bg-sky-50 border-sky-400 ring-2 ring-sky-300'
-                      : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm'
+                      ? 'reflective-subcard bg-white/95 border-sky-300 ring-2 ring-sky-300 shadow-md'
+                      : 'reflective-subcard text-slate-700 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">

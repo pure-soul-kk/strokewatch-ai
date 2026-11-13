@@ -64,14 +64,14 @@ export const RiskAssessmentLab: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="p-6 rounded-2xl glass-panel border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <HeartPulse className="w-5 h-5 text-sky-600" />
             <h2 className="text-xl font-bold text-slate-900 heading-rounded tracking-tight">
               Stroke Risk Awareness Lab
             </h2>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 shadow-sm">
               EDUCATIONAL PROTOCOL
             </span>
           </div>
@@ -83,7 +83,7 @@ export const RiskAssessmentLab: React.FC = () => {
 
         {/* Progress & Reset */}
         <div className="flex items-center gap-4">
-          <div className="text-right">
+          <div className="text-right p-3 rounded-xl reflective-subcard">
             <div className="text-xs font-semibold text-slate-500 uppercase">Completed</div>
             <div className="text-lg font-bold font-mono text-slate-900">
               {answeredCount} / {totalQuestions}
@@ -91,7 +91,7 @@ export const RiskAssessmentLab: React.FC = () => {
           </div>
           <button
             onClick={handleReset}
-            className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 border border-slate-200 transition-colors"
+            className="p-2.5 rounded-xl reflective-pill text-slate-600 hover:text-slate-900 transition-colors shadow-sm"
             title="Reset Assessment"
           >
             <RotateCcw className="w-4 h-4" />
@@ -100,7 +100,7 @@ export const RiskAssessmentLab: React.FC = () => {
       </div>
 
       {/* Mandatory Non-Diagnostic Disclaimer */}
-      <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+      <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 backdrop-blur-sm flex items-start gap-3">
         <Info className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
         <div className="text-xs text-amber-900 leading-relaxed">
           <strong className="text-amber-800 font-semibold uppercase mr-1">[EDUCATIONAL NOTICE]:</strong>
@@ -118,7 +118,7 @@ export const RiskAssessmentLab: React.FC = () => {
             return (
               <div
                 key={q.id}
-                className="p-5 rounded-2xl glass-panel border border-slate-200 space-y-3"
+                className="p-5 rounded-2xl glass-panel reflective-glint space-y-3 shadow-sm"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
@@ -147,10 +147,10 @@ export const RiskAssessmentLab: React.FC = () => {
                       <button
                         key={optIdx}
                         onClick={() => handleSelectOption(q.id, optIdx)}
-                        className={`p-3 rounded-xl border text-left transition-all text-xs flex flex-col justify-between ${
+                        className={`p-3 rounded-xl text-left transition-all text-xs flex flex-col justify-between ${
                           isSelected
-                            ? 'bg-sky-50 border-sky-400 ring-2 ring-sky-300'
-                            : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                            ? 'reflective-subcard bg-white/95 border-sky-300 ring-2 ring-sky-300 shadow-sm'
+                            : 'reflective-subcard text-slate-700 hover:border-slate-300'
                         }`}
                       >
                         <div>
@@ -163,7 +163,7 @@ export const RiskAssessmentLab: React.FC = () => {
                         </div>
 
                         {isSelected && (
-                          <div className="mt-2 pt-2 border-t border-sky-200 text-[10px] text-sky-900 leading-snug font-sans">
+                          <div className="mt-2 pt-2 border-t border-sky-200/80 text-[10px] text-sky-900 leading-snug font-sans">
                             {opt.guidance}
                           </div>
                         )}
@@ -178,8 +178,8 @@ export const RiskAssessmentLab: React.FC = () => {
 
         {/* Live Educational Summary Sidebar */}
         <div className="space-y-4">
-          <div className="glass-panel rounded-2xl p-5 border border-slate-200 sticky top-20 space-y-4 shadow-sm">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+          <div className="glass-panel reflective-glint rounded-2xl p-5 sticky top-20 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
               <span className="text-xs uppercase font-semibold tracking-wide text-slate-500">
                 Awareness Profile
               </span>
@@ -189,7 +189,7 @@ export const RiskAssessmentLab: React.FC = () => {
             </div>
 
             {/* Score Tier Card */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-2">
+            <div className="p-4 rounded-xl reflective-subcard text-center space-y-2">
               <div className="text-[11px] text-slate-500 uppercase font-semibold">
                 Awareness Tier
               </div>

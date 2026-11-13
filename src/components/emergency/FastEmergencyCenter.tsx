@@ -35,11 +35,11 @@ export const FastEmergencyCenter: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Hero Alert Banner */}
-      <div className="p-6 rounded-2xl bg-red-50 border border-red-200 shadow-sm relative overflow-hidden">
+      <div className="p-6 rounded-2xl glass-panel-critical relative overflow-hidden shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
               <span className="text-xs uppercase tracking-wider text-red-700 font-bold">
                 CRITICAL EMERGENCY DIRECTIVE
               </span>
@@ -54,7 +54,7 @@ export const FastEmergencyCenter: React.FC = () => {
           </div>
 
           {/* Quick Direct Emergency Phone */}
-          <div className="p-4 rounded-xl bg-white border border-red-200 text-center shadow-sm">
+          <div className="p-4 rounded-xl reflective-subcard text-center shadow-sm">
             <div className="text-[11px] text-red-700 uppercase font-bold">IMMEDIATE EMERGENCY</div>
             <div className="text-3xl font-extrabold text-slate-900 mt-0.5 font-mono">911 / 112 / 108</div>
             <div className="text-[10px] text-slate-500 mt-1">Free 24/7 National Dispatch</div>
@@ -63,8 +63,8 @@ export const FastEmergencyCenter: React.FC = () => {
       </div>
 
       {/* The FAST Protocol Navigator */}
-      <div className="p-6 rounded-2xl glass-panel border border-slate-200">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200/80">
           <div>
             <h3 className="text-base sm:text-lg font-bold text-slate-900 heading-rounded tracking-tight">
               The F.A.S.T. Recognition Method
@@ -73,7 +73,7 @@ export const FastEmergencyCenter: React.FC = () => {
               Click each letter to understand how to recognize stroke signs in seconds.
             </p>
           </div>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 shadow-sm">
             CLINICAL STANDARD
           </span>
         </div>
@@ -86,10 +86,10 @@ export const FastEmergencyCenter: React.FC = () => {
               <button
                 key={item.letter}
                 onClick={() => setActiveTab(item.letter as any)}
-                className={`p-4 rounded-xl border text-left transition-all ${
+                className={`p-4 rounded-xl text-left transition-all ${
                   isSelected
-                    ? 'bg-sky-50 border-sky-400 ring-2 ring-sky-300'
-                    : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                    ? 'reflective-subcard bg-white/95 border-sky-300 ring-2 ring-sky-300 shadow-md'
+                    : 'reflective-subcard text-slate-700 hover:border-slate-300'
                 }`}
               >
                 <div className="text-3xl font-black font-mono text-slate-900">
@@ -107,7 +107,7 @@ export const FastEmergencyCenter: React.FC = () => {
         </div>
 
         {/* Active Symptom Inspection Board */}
-        <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="p-6 rounded-xl reflective-subcard grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <span className="text-4xl font-black font-mono text-slate-900">
@@ -127,7 +127,7 @@ export const FastEmergencyCenter: React.FC = () => {
               {activeSymptom.subtitle}
             </p>
 
-            <div className="p-3.5 rounded-lg bg-white border border-slate-200 space-y-1">
+            <div className="p-3.5 rounded-xl bg-white/80 border border-slate-200/80 space-y-1 shadow-sm">
               <div className="text-[11px] font-semibold text-sky-700 uppercase">
                 What to look for:
               </div>
@@ -137,7 +137,7 @@ export const FastEmergencyCenter: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-between p-4 rounded-xl bg-white border border-slate-200">
+          <div className="flex flex-col justify-between p-4 rounded-xl bg-white/80 border border-slate-200/80 shadow-sm">
             <div>
               <div className="text-xs font-bold text-slate-900 heading-rounded uppercase tracking-wide mb-2 flex items-center gap-2">
                 <Zap className="w-4 h-4 text-sky-600" />
@@ -156,7 +156,7 @@ export const FastEmergencyCenter: React.FC = () => {
       </div>
 
       {/* "Time is Brain" Simulator */}
-      <div className="p-6 rounded-2xl glass-panel border border-slate-200 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-3">
           <div className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-red-600" />
@@ -170,15 +170,15 @@ export const FastEmergencyCenter: React.FC = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <div className="p-3.5 rounded-xl reflective-subcard text-center">
               <div className="text-xl font-bold font-mono text-red-600">1.9 Million</div>
               <div className="text-[11px] text-slate-600 mt-0.5">Neurons Lost / Min</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <div className="p-3.5 rounded-xl reflective-subcard text-center">
               <div className="text-xl font-bold font-mono text-amber-700">14 Billion</div>
               <div className="text-[11px] text-slate-600 mt-0.5">Synapses Lost / Min</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-center">
+            <div className="p-3.5 rounded-xl reflective-subcard text-center">
               <div className="text-xl font-bold font-mono text-slate-900">12 km (7.5 mi)</div>
               <div className="text-[11px] text-slate-600 mt-0.5">Nerve Fibers / Min</div>
             </div>
@@ -190,7 +190,7 @@ export const FastEmergencyCenter: React.FC = () => {
         </div>
 
         {/* Interactive Stopwatch */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+        <div className="p-4 rounded-xl reflective-subcard flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
               <span className="uppercase font-semibold">Delay Stopwatch</span>
@@ -212,10 +212,10 @@ export const FastEmergencyCenter: React.FC = () => {
           <div className="flex gap-2 mt-4">
             <button
               onClick={() => setIsTimerRunning(!isTimerRunning)}
-              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm heading-rounded border-t border-white/40 ${
                 isTimerRunning
                   ? 'bg-amber-600 hover:bg-amber-700 text-white'
-                  : 'bg-red-600 hover:bg-red-700 text-white shadow-xs'
+                  : 'bg-red-600 hover:bg-red-700 text-white'
               }`}
             >
               <Play className="w-3.5 h-3.5" />

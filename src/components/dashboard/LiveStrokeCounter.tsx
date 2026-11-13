@@ -46,11 +46,11 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
   const secondsPerDeath = (config.intervalBetweenDeathsMs / 1000).toFixed(2);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white border border-slate-200 p-5 sm:p-7 shadow-sm">
+    <div className="relative overflow-hidden rounded-2xl glass-panel reflective-glint p-5 sm:p-7 shadow-sm">
       {/* Top Bar: Title & Region Pill Selector */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-200">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-200/80">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 text-sky-600">
+          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-sky-50/90 border border-sky-200/90 text-sky-600 shadow-sm">
             <Activity className="w-5 h-5" />
           </div>
           <div>
@@ -58,7 +58,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
               <h2 className="text-base sm:text-lg font-bold text-slate-900 heading-rounded tracking-tight">
                 Estimated Live Stroke Counter
               </h2>
-              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/70 shadow-sm">
                 Surveillance Clock
               </span>
             </div>
@@ -69,7 +69,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
         </div>
 
         {/* Quick Region Selector Tabs */}
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 border border-slate-200">
+        <div className="flex items-center gap-1 p-1 rounded-xl bg-white/60 border border-slate-200/80 backdrop-blur-md shadow-inner">
           {(['global', 'india', 'usa', 'china', 'uk'] as const).map((regKey) => {
             const isSelected = currentRegion === regKey;
             const item = COUNTER_CONFIGS[regKey];
@@ -79,8 +79,8 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
                 onClick={() => onRegionChange(regKey)}
                 className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
                   isSelected
-                    ? 'bg-white text-slate-900 font-bold shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'reflective-pill-active font-bold shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
                 }`}
               >
                 {item.name}
@@ -93,7 +93,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
       {/* Main Big Ticking Numbers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-6">
         {/* YTD Strokes */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+        <div className="p-4 rounded-xl reflective-subcard">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
             <span className="uppercase font-medium tracking-wide">Year-To-Date Estimated Cases</span>
             <span className="flex items-center gap-1 text-sky-600 text-[11px] font-semibold">
@@ -111,7 +111,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
         </div>
 
         {/* Today's Estimated Cases */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+        <div className="p-4 rounded-xl reflective-subcard">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
             <span className="uppercase font-medium tracking-wide">Today's Estimated Cases</span>
           </div>
@@ -124,7 +124,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
         </div>
 
         {/* YTD Deaths */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+        <div className="p-4 rounded-xl reflective-subcard">
           <div className="flex items-center justify-between text-xs text-red-600 mb-1">
             <span className="uppercase font-medium tracking-wide">YTD Estimated Fatalities</span>
           </div>
@@ -137,7 +137,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
         </div>
 
         {/* Baseline Source */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col justify-between">
+        <div className="p-4 rounded-xl reflective-subcard flex flex-col justify-between">
           <div>
             <div className="text-xs uppercase font-medium tracking-wide text-slate-500 mb-1">
               Annual Incidence Baseline
@@ -157,7 +157,7 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
       </div>
 
       {/* Mandatory Prominent Disclosure Banner */}
-      <div className="mt-1 p-3.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start sm:items-center gap-3">
+      <div className="mt-1 p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 backdrop-blur-sm flex items-start sm:items-center gap-3">
         <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5 sm:mt-0" />
         <div className="text-xs text-amber-900 leading-relaxed flex-1">
           <strong className="text-amber-800 uppercase tracking-wide mr-1">[DATA METHODOLOGY NOTICE]:</strong>

@@ -106,11 +106,11 @@ export const StrokeSenseChat: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[700px] rounded-2xl glass-panel border border-slate-200 overflow-hidden shadow-sm">
+    <div className="flex flex-col h-[700px] rounded-2xl glass-panel reflective-glint overflow-hidden shadow-sm">
       {/* Chat Header */}
-      <div className="p-4 bg-white border-b border-slate-200 flex items-center justify-between">
+      <div className="p-4 bg-white/70 backdrop-blur-md border-b border-slate-200/80 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 font-bold">
+          <div className="w-9 h-9 rounded-xl bg-purple-50/90 border border-purple-200/90 flex items-center justify-center text-purple-700 font-bold shadow-sm">
             <Bot className="w-5 h-5" />
           </div>
           <div>
@@ -118,7 +118,7 @@ export const StrokeSenseChat: React.FC = () => {
               <h3 className="text-sm font-bold text-slate-900 heading-rounded tracking-tight">
                 StrokeSense AI Assistant
               </h3>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-purple-800 border border-purple-200/80 shadow-sm">
                 EVIDENCE RETRIEVAL
               </span>
             </div>
@@ -132,7 +132,7 @@ export const StrokeSenseChat: React.FC = () => {
           onClick={() => {
             setMessages([messages[0]]);
           }}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="p-1.5 rounded-xl reflective-pill text-slate-500 hover:text-slate-800 transition-colors"
           title="Reset conversation"
         >
           <RefreshCw className="w-4 h-4" />
@@ -140,7 +140,7 @@ export const StrokeSenseChat: React.FC = () => {
       </div>
 
       {/* Suggested Prompt Bar */}
-      <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 overflow-x-auto flex items-center gap-2 no-scrollbar">
+      <div className="px-4 py-2.5 bg-white/40 backdrop-blur-md border-b border-slate-200/70 overflow-x-auto flex items-center gap-2 no-scrollbar">
         <span className="text-[10px] font-semibold uppercase text-slate-500 flex items-center gap-1 flex-shrink-0">
           <Sparkles className="w-3 h-3 text-sky-600" />
           <span>Quick Prompts:</span>
@@ -149,7 +149,7 @@ export const StrokeSenseChat: React.FC = () => {
           <button
             key={idx}
             onClick={() => handleSendMessage(prompt)}
-            className="flex-shrink-0 text-xs px-2.5 py-1 rounded-full bg-white hover:bg-slate-100 hover:text-slate-900 border border-slate-200 text-slate-700 transition-colors font-medium shadow-2xs"
+            className="flex-shrink-0 text-xs px-3 py-1 rounded-full reflective-pill text-slate-700 hover:text-slate-900 transition-all font-medium"
           >
             {prompt}
           </button>
@@ -157,7 +157,7 @@ export const StrokeSenseChat: React.FC = () => {
       </div>
 
       {/* Message History */}
-      <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-slate-50/50">
+      <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 bg-transparent">
         {messages.map((msg) => {
           const isUser = msg.role === 'user';
 
@@ -167,7 +167,7 @@ export const StrokeSenseChat: React.FC = () => {
               className={`flex gap-3 max-w-3xl ${isUser ? 'ml-auto justify-end' : ''}`}
             >
               {!isUser && (
-                <div className="w-8 h-8 rounded-lg bg-purple-100 border border-purple-200 flex items-center justify-center text-purple-700 flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-xl bg-purple-100/80 border border-purple-200/90 flex items-center justify-center text-purple-700 flex-shrink-0 mt-0.5 shadow-sm">
                   <Bot className="w-4 h-4" />
                 </div>
               )}
@@ -175,9 +175,12 @@ export const StrokeSenseChat: React.FC = () => {
               <div
                 className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                   isUser
-                    ? 'bg-sky-600 text-white font-medium rounded-tr-none'
+                    ? 'bg-sky-600 text-white font-medium rounded-tr-none shadow-sm'
                     : msg.isEmergencyAlert
-                    ? 'bg-red-50 border border-red-200 text-red-950 rounded-tl-none'
+                    ? 'bg-red-50/90 border border-red-200/90 text-red-950 rounded-tl-none shadow-sm'
+                    : 'reflective-subcard text-slate-800 rounded-tl-none'
+                }`}
+              >
                     : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-xs'
                 }`}
               >
@@ -252,7 +255,7 @@ export const StrokeSenseChat: React.FC = () => {
       </div>
 
       {/* Input Bar */}
-      <div className="p-3.5 bg-white border-t border-slate-200 flex items-center gap-2">
+      <div className="p-3.5 bg-white/70 backdrop-blur-md border-t border-slate-200/80 flex items-center gap-2">
         <input
           type="text"
           placeholder="Ask StrokeSense AI about stroke statistics, risk factors, or FAST protocols..."
@@ -260,19 +263,19 @@ export const StrokeSenseChat: React.FC = () => {
           onChange={(e) => setInputQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={isLoading}
-          className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-colors"
+          className="flex-1 reflective-input rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors"
         />
         <button
           onClick={() => handleSendMessage()}
           disabled={isLoading || !inputQuery.trim()}
-          className="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-40 text-white font-bold transition-all flex items-center justify-center shadow-xs"
+          className="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 disabled:opacity-40 text-white font-bold transition-all flex items-center justify-center shadow-sm heading-rounded border-t border-sky-400/40"
         >
           <Send className="w-4 h-4" />
         </button>
       </div>
 
       {/* Bottom Guardrail Notice */}
-      <div className="px-4 py-1.5 bg-slate-50 text-[10px] text-slate-500 text-center border-t border-slate-200">
+      <div className="px-4 py-1.5 bg-white/50 backdrop-blur-sm text-[10px] text-slate-500 text-center border-t border-slate-200/60">
         StrokeSense AI cannot diagnose medical conditions. In an emergency, immediately call 911 / 112 / 108.
       </div>
     </div>

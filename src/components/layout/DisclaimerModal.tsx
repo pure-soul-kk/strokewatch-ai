@@ -12,14 +12,14 @@ export const DisclaimerModal: React.FC<DisclaimerModalProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-200">
       <div 
         role="dialog"
         aria-modal="true"
         aria-labelledby="disclaimer-modal-title"
-        className="relative w-full max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-xl p-6 text-slate-800 overflow-hidden"
+        className="relative w-full max-w-2xl glass-panel reflective-glint rounded-2xl shadow-2xl p-6 text-slate-800 overflow-hidden"
       >
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200/80">
           <div className="flex items-center gap-2.5">
             <Scale className="w-5 h-5 text-sky-600" />
             <h2 id="disclaimer-modal-title" className="text-lg font-bold text-slate-900 heading-rounded">
@@ -28,7 +28,7 @@ export const DisclaimerModal: React.FC<DisclaimerModalProps> = ({ isOpen, onClos
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-xl reflective-pill text-slate-500 hover:text-slate-800 transition-colors shadow-sm"
           >
             <X className="w-5 h-5" />
           </button>

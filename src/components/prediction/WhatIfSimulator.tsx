@@ -30,14 +30,14 @@ export const WhatIfSimulator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="p-6 rounded-2xl glass-panel border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <Sliders className="w-5 h-5 text-sky-600" />
             <h2 className="text-xl font-bold text-slate-900 heading-rounded tracking-tight">
               What-If? Scenario Prediction Lab
             </h2>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 shadow-sm">
               GBD PAF SIMULATION
             </span>
           </div>
@@ -48,14 +48,14 @@ export const WhatIfSimulator: React.FC = () => {
         </div>
 
         {/* Primary Driver Badge */}
-        <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-right">
+        <div className="p-3.5 rounded-xl reflective-subcard text-right shadow-sm">
           <div className="text-[10px] text-slate-500 uppercase font-semibold">Primary Driver</div>
           <div className="text-sm font-bold text-sky-700 heading-rounded">{simulation.primaryDriver}</div>
         </div>
       </div>
 
       {/* Mandatory Scenario Disclosure */}
-      <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+      <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 backdrop-blur-sm flex items-start gap-3">
         <Info className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
         <div className="text-xs text-amber-900 leading-relaxed">
           <strong className="text-amber-800 font-semibold uppercase mr-1">[MODEL-BASED SCENARIO NOTICE]:</strong>
@@ -66,7 +66,7 @@ export const WhatIfSimulator: React.FC = () => {
 
       {/* Top 3 Impact KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl glass-panel border border-slate-200">
+        <div className="p-5 rounded-2xl glass-panel reflective-glint shadow-sm">
           <div className="text-xs uppercase font-semibold text-emerald-700 flex items-center justify-between">
             <span>Cumulative Cases Averted</span>
             <TrendingDown className="w-4 h-4 text-emerald-600" />
@@ -79,7 +79,7 @@ export const WhatIfSimulator: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl glass-panel border border-slate-200">
+        <div className="p-5 rounded-2xl glass-panel reflective-glint shadow-sm">
           <div className="text-xs uppercase font-semibold text-sky-700 flex items-center justify-between">
             <span>Cumulative Deaths Averted</span>
             <TrendingDown className="w-4 h-4 text-sky-600" />
@@ -92,7 +92,7 @@ export const WhatIfSimulator: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-5 rounded-2xl glass-panel border border-slate-200">
+        <div className="p-5 rounded-2xl glass-panel reflective-glint shadow-sm">
           <div className="text-xs uppercase font-semibold text-slate-700 flex items-center justify-between">
             <span>Net Joint Risk Reduction</span>
             <Sparkles className="w-4 h-4 text-sky-600" />
@@ -109,8 +109,8 @@ export const WhatIfSimulator: React.FC = () => {
       {/* Sliders Grid Left, Trajectory Chart Right */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sliders Column */}
-        <div className="glass-panel rounded-2xl p-6 border border-slate-200 space-y-5">
-          <div className="pb-3 border-b border-slate-200">
+        <div className="glass-panel reflective-glint rounded-2xl p-6 space-y-5 shadow-sm">
+          <div className="pb-3 border-b border-slate-200/80">
             <h3 className="text-sm font-bold text-slate-900 heading-rounded uppercase tracking-wide">
               Policy & Risk Levers
             </h3>

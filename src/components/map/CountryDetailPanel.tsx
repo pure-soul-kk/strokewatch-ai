@@ -14,9 +14,9 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
   if (!country) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white border-l border-slate-200 shadow-xl p-6 overflow-y-auto animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white/90 backdrop-blur-2xl border-l border-slate-200/80 shadow-2xl p-6 overflow-y-auto animate-in slide-in-from-right duration-200">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+      <div className="flex items-center justify-between pb-4 border-b border-slate-200/80">
         <div className="flex items-center gap-3">
           <span className="text-3xl">{country.flagEmoji}</span>
           <div>
@@ -33,7 +33,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
 
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+          className="p-1.5 rounded-xl reflective-pill text-slate-500 hover:text-slate-800 transition-colors shadow-sm"
         >
           <X className="w-5 h-5" />
         </button>
@@ -41,7 +41,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
 
       {/* Main KPI Badges */}
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="p-3.5 rounded-xl reflective-subcard">
           <div className="text-[11px] text-slate-500 uppercase font-semibold">Annual Incidence</div>
           <div className="text-xl font-bold font-mono text-sky-700 mt-1">
             {country.incidenceRate}
@@ -49,7 +49,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
           <div className="text-[10px] text-slate-500 mt-0.5">per 100,000 population</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="p-3.5 rounded-xl reflective-subcard">
           <div className="text-[11px] text-slate-500 uppercase font-semibold">Annual Mortality</div>
           <div className="text-xl font-bold font-mono text-red-600 mt-1">
             {country.mortalityRate}
@@ -57,7 +57,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
           <div className="text-[10px] text-slate-500 mt-0.5">per 100,000 population</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="p-3.5 rounded-xl reflective-subcard">
           <div className="text-[11px] text-slate-500 uppercase font-semibold">Disability Burden</div>
           <div className="text-xl font-bold font-mono text-amber-700 mt-1">
             {country.dalyRate}
@@ -65,7 +65,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
           <div className="text-[10px] text-slate-500 mt-0.5">DALYs / 100k people</div>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+        <div className="p-3.5 rounded-xl reflective-subcard">
           <div className="text-[11px] text-slate-500 uppercase font-semibold">Estimated Prevalence</div>
           <div className="text-xl font-bold font-mono text-slate-800 mt-1">
             {country.prevalenceRate}

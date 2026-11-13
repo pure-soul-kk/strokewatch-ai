@@ -37,14 +37,14 @@ export const ResearchFeed: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint shadow-sm flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <Newspaper className="w-5 h-5 text-sky-600" />
             <h2 className="text-xl font-bold text-slate-900 tracking-tight heading-rounded">
               LATEST STROKE RESEARCH & CLINICAL DISCOVERIES
             </h2>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 font-semibold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 font-semibold shadow-sm">
               PEER-REVIEWED FEED
             </span>
           </div>
@@ -62,7 +62,7 @@ export const ResearchFeed: React.FC = () => {
             placeholder="Search papers by keyword or journal..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:bg-white w-60 sm:w-72 transition-colors"
+            className="pl-9 pr-4 py-2 rounded-xl reflective-input text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-60 sm:w-72 transition-colors"
           />
         </div>
       </div>
@@ -77,8 +77,8 @@ export const ResearchFeed: React.FC = () => {
               onClick={() => setActiveCategory(cat)}
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all ${
                 isSelected
-                  ? 'bg-sky-600 text-white font-bold shadow-sm'
-                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-slate-300'
+                  ? 'reflective-pill-active font-bold shadow-sm'
+                  : 'reflective-pill text-slate-600 hover:text-slate-900'
               }`}
             >
               {cat}
@@ -92,7 +92,7 @@ export const ResearchFeed: React.FC = () => {
         {filteredArticles.map((article: ResearchArticle) => (
           <div
             key={article.id}
-            className="group bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:border-sky-300 hover:shadow-md transition-all flex flex-col justify-between"
+            className="group glass-panel reflective-glint rounded-2xl p-5 shadow-sm flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
@@ -111,7 +111,7 @@ export const ResearchFeed: React.FC = () => {
               </div>
 
               {/* AI-Generated Summary */}
-              <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1.5">
+              <div className="mt-3 p-3.5 rounded-xl reflective-subcard space-y-1.5">
                 <div className="text-[10px] font-mono uppercase text-sky-700 font-semibold flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-sky-600" />
                   <span>AI Clinical Synthesis:</span>
@@ -128,7 +128,7 @@ export const ResearchFeed: React.FC = () => {
             </div>
 
             {/* Source DOI Link */}
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between">
               <span className="text-[10px] font-mono text-slate-500">
                 Impact Score: <strong className="text-sky-600 font-mono">{article.impactScore}/100</strong>
               </span>
@@ -148,8 +148,8 @@ export const ResearchFeed: React.FC = () => {
       </div>
 
       {/* Impact Stories Section (Educational Recovery Scenarios) */}
-      <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-slate-100">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint shadow-sm space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-slate-200/80">
           <div>
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-sky-600" />
@@ -161,7 +161,7 @@ export const ResearchFeed: React.FC = () => {
               Fictional educational clinical scenarios based on real hospital emergency workflows.
             </p>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 font-medium">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 font-medium shadow-2xs">
             EDUCATIONAL SCENARIOS (NON-REAL PATIENT NAMES)
           </span>
         </div>
@@ -170,7 +170,7 @@ export const ResearchFeed: React.FC = () => {
           {IMPACT_STORIES.map((story) => (
             <div
               key={story.id}
-              className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/80 hover:border-slate-300 transition-colors flex flex-col justify-between space-y-3"
+              className="p-4 rounded-xl reflective-subcard flex flex-col justify-between space-y-3"
             >
               <div>
                 <div className="text-[10px] font-mono uppercase text-sky-700 font-semibold">

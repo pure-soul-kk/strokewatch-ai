@@ -12,7 +12,7 @@ export const IndiaDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Overview Banner */}
-      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+      <div className="p-6 rounded-2xl glass-panel reflective-glint shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -20,7 +20,7 @@ export const IndiaDashboard: React.FC = () => {
               <h2 className="text-xl sm:text-2xl font-black text-slate-900 heading-rounded tracking-tight">
                 India Stroke Intelligence Command
               </h2>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 shadow-sm">
                 ICMR-NCDIR & GBD
               </span>
             </div>
@@ -30,7 +30,7 @@ export const IndiaDashboard: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-right">
+          <div className="text-right p-4 rounded-xl reflective-subcard shadow-sm">
             <div className="text-xs text-slate-500 uppercase font-semibold">National Crude Incidence</div>
             <div className="text-2xl font-extrabold text-slate-900 font-mono">{INDIA_OVERVIEW.crudeIncidenceRateAvg}</div>
             <div className="text-[10px] text-slate-500">per 100,000 population / year</div>
@@ -40,7 +40,7 @@ export const IndiaDashboard: React.FC = () => {
 
       {/* 4 Primary India KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl glass-panel border border-slate-200">
+        <div className="p-4 rounded-xl glass-panel reflective-glint">
           <div className="text-xs text-slate-500 uppercase font-semibold">Annual Incident Strokes</div>
           <div className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 mt-1">
             {INDIA_OVERVIEW.annualIncidenceDisplay}
@@ -49,7 +49,7 @@ export const IndiaDashboard: React.FC = () => {
           <div className="mt-2 text-[9px] text-slate-500">Nationwide Estimate (ICMR/GBD)</div>
         </div>
 
-        <div className="p-4 rounded-xl glass-panel border border-slate-200">
+        <div className="p-4 rounded-xl glass-panel reflective-glint">
           <div className="text-xs text-red-600 uppercase font-semibold">Annual Stroke Mortality</div>
           <div className="text-2xl sm:text-3xl font-extrabold font-mono text-red-600 mt-1">
             {INDIA_OVERVIEW.annualMortalityDisplay}
@@ -58,7 +58,7 @@ export const IndiaDashboard: React.FC = () => {
           <div className="mt-2 text-[9px] text-slate-500">2nd leading cause of mortality</div>
         </div>
 
-        <div className="p-4 rounded-xl glass-panel border border-slate-200">
+        <div className="p-4 rounded-xl glass-panel reflective-glint">
           <div className="text-xs text-amber-700 uppercase font-semibold">Hemorrhagic Proportion</div>
           <div className="text-2xl sm:text-3xl font-extrabold font-mono text-amber-700 mt-1">
             {INDIA_OVERVIEW.hemorrhagicProportion}%
@@ -67,7 +67,7 @@ export const IndiaDashboard: React.FC = () => {
           <div className="mt-2 text-[9px] text-slate-500">High early case fatality</div>
         </div>
 
-        <div className="p-4 rounded-xl glass-panel border border-slate-200">
+        <div className="p-4 rounded-xl glass-panel reflective-glint">
           <div className="text-xs text-sky-700 uppercase font-semibold">Survivors Living With Stroke</div>
           <div className="text-2xl sm:text-3xl font-extrabold font-mono text-sky-800 mt-1">
             {INDIA_OVERVIEW.prevalenceDisplay}
@@ -78,7 +78,7 @@ export const IndiaDashboard: React.FC = () => {
       </div>
 
       {/* Distinction Alert: Population Registries vs National Estimates */}
-      <div className="p-4 rounded-xl bg-sky-50 border border-sky-200 flex items-start gap-3">
+      <div className="p-4 rounded-xl reflective-subcard flex items-start gap-3">
         <ShieldCheck className="w-5 h-5 text-sky-600 flex-shrink-0 mt-0.5" />
         <div className="text-xs text-sky-900 leading-relaxed">
           <strong className="text-sky-800 font-semibold uppercase mr-1">[SURVEILLANCE ARCHITECTURE DISTINCTION]:</strong>
@@ -92,8 +92,8 @@ export const IndiaDashboard: React.FC = () => {
       <IndiaRegistryMap />
 
       {/* India Historical Trends */}
-      <div className="p-5 rounded-2xl glass-panel border border-slate-200">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+      <div className="p-5 rounded-2xl glass-panel reflective-glint">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-4">
           <div className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-sky-600" />
             <h3 className="text-sm sm:text-base font-bold text-slate-900 heading-rounded tracking-tight">
@@ -109,10 +109,10 @@ export const IndiaDashboard: React.FC = () => {
           {INDIA_TRENDS.map((t) => (
             <div
               key={t.year}
-              className={`p-3 rounded-xl border text-center ${
+              className={`p-3 rounded-xl reflective-subcard text-center ${
                 t.isProjected
-                  ? 'bg-purple-50 border-purple-200 text-purple-900'
-                  : 'bg-slate-50 border-slate-200 text-slate-700'
+                  ? 'border-purple-200/90 text-purple-900'
+                  : 'text-slate-700'
               }`}
             >
               <div className="text-[11px] font-bold text-slate-600 flex items-center justify-center gap-1">

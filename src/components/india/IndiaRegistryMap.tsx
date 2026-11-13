@@ -11,9 +11,9 @@ export const IndiaRegistryMap: React.FC = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Registry Selector & Table */}
-      <div className="lg:col-span-2 glass-panel rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+      <div className="lg:col-span-2 glass-panel reflective-glint rounded-2xl p-5 flex flex-col justify-between shadow-sm">
         <div>
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5 text-sky-600" />
               <div>
@@ -25,7 +25,7 @@ export const IndiaRegistryMap: React.FC = () => {
                 </p>
               </div>
             </div>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-emerald-800 border border-emerald-200/80 shadow-sm">
               6 SENTINEL SITES
             </span>
           </div>
@@ -38,10 +38,10 @@ export const IndiaRegistryMap: React.FC = () => {
                 <button
                   key={reg.id}
                   onClick={() => setSelectedRegistry(reg)}
-                  className={`p-3 rounded-xl border text-left transition-all ${
+                  className={`p-3 rounded-xl text-left transition-all ${
                     isSelected
-                      ? 'bg-sky-50 border-sky-400 ring-2 ring-sky-300'
-                      : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
+                      ? 'reflective-subcard bg-white/95 border-sky-300 ring-2 ring-sky-300 shadow-md'
+                      : 'reflective-subcard text-slate-700 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -51,7 +51,7 @@ export const IndiaRegistryMap: React.FC = () => {
                   <div className="text-[10px] text-slate-500 mt-1 font-mono">
                     AAIR: {reg.ageAdjustedIncidenceRate} / 100k
                   </div>
-                  <div className="mt-2 text-[9px] px-1.5 py-0.5 rounded inline-block bg-white border border-slate-200 text-slate-600 font-medium">
+                  <div className="mt-2 text-[9px] px-1.5 py-0.5 rounded inline-block bg-white/90 border border-slate-200/80 text-slate-700 font-medium shadow-2xs">
                     {reg.registryType.includes('Population') ? 'PBSR' : 'HBSR'}
                   </div>
                 </button>
@@ -60,7 +60,7 @@ export const IndiaRegistryMap: React.FC = () => {
           </div>
 
           {/* Regional Comparison Table */}
-          <div className="mt-4 pt-4 border-t border-slate-200">
+          <div className="mt-4 pt-4 border-t border-slate-200/80">
             <h4 className="text-xs font-bold text-slate-900 heading-rounded uppercase tracking-wide mb-2.5">
               Regional Surveillance Contrasts
             </h4>
@@ -77,7 +77,7 @@ export const IndiaRegistryMap: React.FC = () => {
                 </thead>
                 <tbody className="divide-y divide-slate-100 font-sans text-slate-700">
                   {INDIA_REGIONAL_COMPARISON.map((zone, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50">
+                    <tr key={idx} className="hover:bg-white/60 transition-colors">
                       <td className="py-2.5 font-medium text-slate-900">{zone.region}</td>
                       <td className="py-2.5 font-mono text-slate-900 font-semibold">{zone.incidencePer100k}</td>
                       <td className="py-2.5 font-mono text-red-600 font-bold">{zone.hemorrhagicPercent}%</td>
@@ -91,7 +91,7 @@ export const IndiaRegistryMap: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <div className="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
           <span className="flex items-center gap-1.5">
             <Info className="w-3.5 h-3.5 text-sky-600" />
             <span>PBSR = Population-Based Surveillance; HBSR = Hospital-Based Surveillance.</span>
@@ -100,9 +100,9 @@ export const IndiaRegistryMap: React.FC = () => {
       </div>
 
       {/* Selected Registry Detail Card */}
-      <div className="glass-panel rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+      <div className="glass-panel reflective-glint rounded-2xl p-5 flex flex-col justify-between shadow-sm">
         <div>
-          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
             <div>
               <span className="text-[10px] uppercase font-semibold text-sky-700">
                 Active Registry Audit
@@ -111,7 +111,7 @@ export const IndiaRegistryMap: React.FC = () => {
                 {selectedRegistry.city}, {selectedRegistry.state}
               </h3>
             </div>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/80 text-slate-700 border border-slate-200/80 shadow-sm">
               {selectedRegistry.registryType.includes('Population') ? 'PBSR' : 'HBSR'}
             </span>
           </div>
@@ -119,7 +119,7 @@ export const IndiaRegistryMap: React.FC = () => {
           <div className="mt-4 space-y-3.5 text-xs">
             {/* Rates */}
             <div className="grid grid-cols-2 gap-2">
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="p-3 rounded-xl reflective-subcard">
                 <div className="text-[10px] text-slate-500 uppercase font-semibold">Crude Incidence</div>
                 <div className="text-lg font-bold font-mono text-slate-900 mt-0.5">
                   {selectedRegistry.crudeIncidenceRate}
@@ -127,7 +127,7 @@ export const IndiaRegistryMap: React.FC = () => {
                 <div className="text-[9px] text-slate-500">/ 100k population</div>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+              <div className="p-3 rounded-xl reflective-subcard">
                 <div className="text-[10px] text-slate-500 uppercase font-semibold">Age-Adjusted (AAIR)</div>
                 <div className="text-lg font-bold font-mono text-slate-900 mt-0.5">
                   {selectedRegistry.ageAdjustedIncidenceRate}
@@ -137,7 +137,7 @@ export const IndiaRegistryMap: React.FC = () => {
             </div>
 
             {/* Ischemic vs Hemorrhagic */}
-            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div className="p-3.5 rounded-xl reflective-subcard">
               <div className="text-xs font-bold text-slate-900 heading-rounded mb-2 flex justify-between">
                 <span>Pathological Subtype Ratio</span>
                 <span className="font-mono text-red-600">{selectedRegistry.hemorrhagicShare}% Hemorrhagic</span>

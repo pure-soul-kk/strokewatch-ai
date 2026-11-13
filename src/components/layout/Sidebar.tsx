@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 bg-white border-r border-slate-200 flex flex-col transition-all duration-300 ease-in-out ${
+        className={`fixed top-16 bottom-0 left-0 z-40 glass-sidebar flex flex-col transition-all duration-300 ease-in-out ${
           isCollapsed ? 'w-20' : 'w-72'
         } ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
@@ -138,7 +138,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
             {!isCollapsed && <span>Surveillance Modules</span>}
             <span className="flex items-center gap-1 text-emerald-600 font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>ACTIVE</span>
             </span>
           </div>
@@ -156,8 +156,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 className={`w-full group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
                   isActive
-                    ? 'bg-sky-50 text-sky-900 font-semibold border border-sky-200'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-transparent'
+                    ? 'reflective-subcard bg-white/90 text-sky-900 font-semibold border-sky-200/90 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 border border-transparent'
                 }`}
                 title={isCollapsed ? item.label : undefined}
               >
@@ -165,7 +165,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
                     isActive
                       ? 'bg-sky-600 text-white shadow-sm'
-                      : 'bg-slate-100 group-hover:bg-slate-200 text-slate-600 group-hover:text-slate-900'
+                      : 'bg-slate-100/80 group-hover:bg-white text-slate-600 group-hover:text-slate-900 border border-slate-200/50'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -202,7 +202,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Footer command stats */}
-        <div className="p-3 border-t border-slate-200 bg-slate-50/70">
+        <div className="p-3 border-t border-slate-200/80 bg-white/40 backdrop-blur-md">
           {!isCollapsed ? (
             <div className="space-y-1.5">
               <div className="flex items-center justify-between text-[11px] text-slate-600">
@@ -225,7 +225,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Desktop collapse toggle button */}
           <button
             onClick={onToggleCollapse}
-            className="hidden lg:flex mt-3 w-full items-center justify-center gap-1.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 text-xs transition-colors"
+            className="hidden lg:flex mt-3 w-full items-center justify-center gap-1.5 py-1.5 rounded-xl reflective-pill text-slate-600 text-xs transition-colors"
           >
             {isCollapsed ? (
               <ChevronRight className="w-4 h-4" />

@@ -11,7 +11,7 @@ export const MetricCards: React.FC = () => {
         return (
           <div
             key={metric.id}
-            className="glass-panel rounded-2xl p-5 border border-slate-200 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5"
+            className="glass-panel reflective-glint rounded-2xl p-5 flex flex-col justify-between"
           >
             {/* Top Row: Metric Category Label & Estimate Tag */}
             <div>
@@ -21,10 +21,10 @@ export const MetricCards: React.FC = () => {
                 </span>
 
                 <span
-                  className={`text-[9px] uppercase px-2 py-0.5 rounded-full border font-semibold ${
+                  className={`text-[9px] uppercase px-2 py-0.5 rounded-full border font-semibold shadow-sm ${
                     metric.isEstimate
-                      ? 'bg-sky-50 text-sky-700 border-sky-200'
-                      : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                      ? 'bg-white/80 text-sky-800 border-sky-200/80'
+                      : 'bg-white/80 text-emerald-800 border-emerald-200/80'
                   }`}
                 >
                   {metric.isEstimate ? 'Modelled Estimate' : 'Verified Registry'}
@@ -55,7 +55,7 @@ export const MetricCards: React.FC = () => {
             </div>
 
             {/* Bottom Metadata: Reporting Period, Source, Last Updated */}
-            <div className="mt-5 pt-3 border-t border-slate-100 space-y-1.5 text-[11px]">
+            <div className="mt-5 pt-3 border-t border-slate-200/80 space-y-1.5 text-[11px]">
               <div className="flex items-center justify-between text-slate-500">
                 <span>Reporting Period:</span>
                 <span className="font-mono text-slate-700 text-right truncate max-w-[200px]">

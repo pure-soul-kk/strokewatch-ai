@@ -28,10 +28,10 @@ export const EmergencyBanner: React.FC<EmergencyBannerProps> = ({ onOpenFastModa
   }
 
   return (
-    <aside aria-label="Acute stroke emergency assistance" className="bg-red-50 border-b border-red-200 text-red-950 px-4 py-2.5 z-40 transition-all">
+    <aside aria-label="Acute stroke emergency assistance" className="bg-red-50/90 backdrop-blur-md border-b border-red-200/80 text-red-950 px-4 py-2.5 z-40 transition-all shadow-2xs">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-red-100 border border-red-200 flex items-center justify-center text-red-600 flex-shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-red-100/90 border border-red-200/90 flex items-center justify-center text-red-600 flex-shrink-0 shadow-2xs">
             <ShieldAlert className="w-4 h-4" />
           </div>
           <div className="text-sm">
@@ -47,7 +47,7 @@ export const EmergencyBanner: React.FC<EmergencyBannerProps> = ({ onOpenFastModa
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenFastModal}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all shadow-sm heading-rounded border-t border-red-400/40"
           >
             <PhoneCall className="w-3.5 h-3.5" />
             <span>Emergency FAST Center</span>
@@ -55,7 +55,7 @@ export const EmergencyBanner: React.FC<EmergencyBannerProps> = ({ onOpenFastModa
           </button>
           <button
             onClick={() => setIsDismissed(true)}
-            className="p-1 text-slate-400 hover:text-slate-700 rounded hover:bg-red-100 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-white/70 transition-colors"
             title="Minimize emergency banner"
           >
             <X className="w-4 h-4" />
