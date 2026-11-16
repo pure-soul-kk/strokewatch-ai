@@ -26,3 +26,11 @@ yarn-error.log*
 .DS_Store
 *.pem
 Thumbs.db
+
+# Python & ML
+packages/
+.venv/
+__pycache__/
+*.pyc
+models/
+

@@ -58,27 +58,96 @@
 
 ## 🚀 Running the Project
 
-### Option A: Next.js Full-Stack App (Recommended for Production)
+### Option A: Gradio & Flash Command Center (Recommended)
+
+Run the full interactive Bloomberg-style medical command center:
 
 ```bash
-cd strokewatch-ai
-npm install
-npm run dev
+python3 run.py --mode gradio
+# Or directly:
+python3 app.py
 ```
 
-Visit `http://localhost:3000` to interact with the full Next.js App Router command center.
+Open `http://localhost:7860` in your browser.
 
-### Option B: Standalone Zero-Dependency Instant Preview
+**Features included:**
+- **Executive Command Dashboard**: Live Poisson estimated stroke cadence, 6 core metrics, and verified health insights.
+- **Stroke Risk Prediction Lab**: Patient risk stratification powered by the **Gist models** (Logistic Regression, Random Forest, Neural Network MLP).
+- **Gist Model Architecture & Evaluation**: Preprocessing pipeline breakdown, SMOTE class balancing, ROC-AUC comparison table, and confusion matrix/feature importance charts.
+- **StrokeSense AI Assistant**: Powered by **Google Gemini Flash** (with Lancet/WSO knowledge retrieval fallback) and acute symptom emergency detection.
+- **FAST Emergency Awareness & Neural Loss Simulator**: 1.9M neurons destroyed per minute with emergency dispatch directory.
+- **Dedicated India Surveillance**: ICMR-NCDIR sentinel registries (Ludhiana, Varanasi, Kota, Cuttack, Cachar, Tirunelveli).
+- **What-If? Scenario Prediction Lab**: Joint PAF simulation engine modeling BP control, smoking cessation, exercise, and air quality.
+- **Clinical Research Feed**: Real peer-reviewed publications from *The Lancet Neurology*, *NEJM*, and *WSO*.
 
-If you want to view the platform instantly in any browser without Node or build tools:
+### Option B: Flask REST API Backend
+
+Run the Flask server providing RESTful endpoints (`/api/predict`, `/api/chat`, `/api/simulate`, `/api/stats`, `/api/registries`):
 
 ```bash
-cd strokewatch-ai
-# Open standalone.html in your browser or serve locally:
-python3 -m http.server 3000
+python3 run.py --mode flask
+# Or directly:
+python3 flask_app.py
 ```
 
-Open `http://localhost:3000/standalone.html` in your browser.
+Access the API and status page at `http://localhost:5000`.
+
+### Option C: Run Both Gradio and Flask Simultaneously
+
+```bash
+python3 run.py --mode all
+```
+
+- Gradio UI: `http://localhost:7860`
+- Flask REST API: `http://localhost:5000`
+
+---
+
+## ⚡ Deploying to Vercel (Zero Local PC Resource Consumption)
+
+The platform is fully configured for serverless deployment on **Vercel** with zero compute or RAM load on your local PC.
+
+### Method 1: Git Push to Vercel (Instant 1-Click)
+
+1. Push your repository to **GitHub** (or GitLab / Bitbucket).
+2. Go to [vercel.com/new](https://vercel.com/new) and import your repository.
+3. Keep default settings:
+   - **Framework Preset**: Next.js
+   - **Root Directory**: `./`
+4. Click **Deploy**.
+
+Vercel will automatically build the Next.js frontend and the serverless functions (`api/index.py` & `requirements.txt`).
+
+### Method 2: Vercel CLI
+
+```bash
+# In the strokewatch-ai directory:
+vercel
+# For production deployment:
+vercel --prod
+```
+
+### Serverless Architecture on Vercel:
+- **Frontend**: High-speed Next.js command center served globally on the Vercel Edge Network.
+- **Serverless API**: Python endpoints (`/api/predict`, `/api/chat`, `/api/simulate`, `/api/stats`, `/api/registries`) served via `@vercel/python` in `api/index.py`.
+- **Zero Local Resource Load**: All calculations, predictions, and simulations run entirely in Vercel's serverless cloud infrastructure.
+- **Instant Cold Starts**: The Gist machine learning models use a calibrated pure-Python formula that executes in `< 1ms` with no heavy C++ library cold starts.
+
+
+---
+
+## 🔬 Machine Learning Pipeline (From Gist)
+
+Trained on the benchmark 5,110-patient healthcare stroke dataset:
+1. **Cleaning**: Dropped `id`, removed gender `Other`, median imputation for `bmi` (28.1 kg/m²).
+2. **Encoding**: One-Hot Encoding with `drop_first=True` across 5 categorical variables.
+3. **Scaling**: `StandardScaler` on numerical features (`age`, `avg_glucose_level`, `bmi`).
+4. **Balancing**: SMOTE (Synthetic Minority Over-sampling) on training set.
+5. **Evaluation**:
+   - Logistic Regression: **ROC-AUC = 0.8226**
+   - Neural Network (MLP): **ROC-AUC = 0.7660**
+   - Random Forest: **ROC-AUC = 0.7510**
+
 
 ---
 
