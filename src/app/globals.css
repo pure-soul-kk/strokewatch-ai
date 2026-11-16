@@ -33,19 +33,19 @@
 }
 
 html {
-  font-size: 17.2px; /* Proportionally elevates all rem-based typography for enhanced readability */
+  font-size: 16.2px; /* Balanced root scale for crisp readability without line overflow */
   -webkit-text-size-adjust: 100%;
 }
 
 /* Enhanced legibility for micro-badges and captions */
 .text-\[9px\] {
-  font-size: 11px !important;
+  font-size: 10.5px !important;
 }
 .text-\[10px\] {
-  font-size: 11.5px !important;
+  font-size: 11px !important;
 }
 .text-\[11px\] {
-  font-size: 12.5px !important;
+  font-size: 11.5px !important;
 }
 
 body {
@@ -68,8 +68,20 @@ body {
 h1, h2, h3, h4, h5, h6, .heading-rounded, .font-title {
   font-family: 'Google Sans Flex', sans-serif !important;
   font-variation-settings: 'ROND' 100;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: #0F172A;
+  line-height: 1.25;
+}
+
+/* Compact header sizes to prevent wrapping into 2 lines */
+h1 {
+  font-size: 1.35rem;
+}
+h2 {
+  font-size: 1.1rem;
+}
+h3 {
+  font-size: 0.95rem;
 }
 
 /* Tabular figures for aligned data */

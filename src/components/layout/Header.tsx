@@ -46,9 +46,9 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 h-16 glass-header px-4 lg:px-6 flex items-center justify-between">
+    <header className="sticky top-0 z-30 h-16 glass-header px-4 lg:px-6 flex items-center justify-between whitespace-nowrap flex-nowrap">
       {/* Left: Mobile hamburger & branding, Desktop Surveillance Beacon */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={onToggleSidebar}
           className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-white/80 lg:hidden transition-colors"
@@ -70,9 +70,9 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Desktop Status Beacon */}
-        <div className="hidden lg:flex items-center gap-2 text-xs font-medium text-slate-700">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-mono text-slate-600 uppercase text-[11px] font-bold">NEUROVASCULAR SURVEILLANCE PLATFORM • GBD 2021 & WSO AUDITED</span>
+        <div className="hidden lg:flex items-center gap-2 text-xs font-medium text-slate-700 min-w-0">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+          <span className="font-mono text-slate-600 uppercase text-[10.5px] font-bold truncate">GBD 2021 & WSO SURVEILLANCE ACTIVE</span>
         </div>
       </div>
 

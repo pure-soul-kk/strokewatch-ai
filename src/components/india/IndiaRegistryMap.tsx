@@ -155,7 +155,7 @@ export const IndiaRegistryMap: React.FC = () => {
                 <span className="text-[10px] uppercase font-bold text-sky-700 font-mono tracking-wider">
                   ACTIVE SENTINEL REGISTRY AUDIT
                 </span>
-                <h3 className="text-2xl font-black text-slate-900 heading-rounded tracking-tight mt-0.5">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 heading-rounded tracking-tight mt-0.5">
                   {selectedRegistry.city}, {selectedRegistry.state}
                 </h3>
               </div>

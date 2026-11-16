@@ -740,7 +740,7 @@ export const RiskAssessmentLab: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <Brain className="w-6 h-6 text-rose-600" />
-            <h2 className="text-xl font-bold text-slate-900 heading-rounded tracking-tight">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 heading-rounded tracking-tight">
               Stroke Risk Assessment & Clinical Machine Learning
             </h2>
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-300 shadow-sm font-mono font-bold">

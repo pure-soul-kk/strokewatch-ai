@@ -54,7 +54,7 @@ export const FastEmergencyCenter: React.FC = () => {
                 CRITICAL HYPERACUTE DIRECTIVE
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 heading-rounded tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 heading-rounded tracking-tight">
               FAST Emergency Response Command Center
             </h2>
             <p className="text-sm text-slate-700 mt-2 leading-relaxed">

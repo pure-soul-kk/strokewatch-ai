@@ -41,7 +41,7 @@ export const ResearchFeed: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <Newspaper className="w-5 h-5 text-sky-600" />
-            <h2 className="text-xl font-bold text-slate-900 tracking-tight heading-rounded">
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight heading-rounded">
               LATEST STROKE RESEARCH & CLINICAL DISCOVERIES
             </h2>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/80 text-sky-800 border border-sky-200/80 font-semibold shadow-sm">
