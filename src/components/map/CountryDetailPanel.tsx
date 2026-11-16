@@ -159,7 +159,7 @@ export const CountryDetailPanel: React.FC<CountryDetailPanelProps> = ({ country,
       <div className="mt-6">
         <button
           onClick={onClose}
-          className="w-full py-2.5 text-xs font-semibold rounded-lg bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+          className="w-full py-2.5 text-xs font-bold rounded-xl bg-sky-600 hover:bg-sky-700 text-white transition-all shadow-xs"
         >
           Close Detail Panel
         </button>

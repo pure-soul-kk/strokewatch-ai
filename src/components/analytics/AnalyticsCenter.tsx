@@ -23,9 +23,21 @@ import { downloadCSV, formatNumber } from '@/lib/utils';
 export const AnalyticsCenter: React.FC = () => {
   const [trendMetric, setTrendMetric] = useState<'globalCases' | 'deaths' | 'dalys' | 'indiaCases'>('globalCases');
   const [selectedCountries, setSelectedCountries] = useState<string[]>(['IND', 'CHN', 'USA', 'DEU']);
+  const [isExported, setIsExported] = useState(false);
 
   const handleExportAll = () => {
-    downloadCSV('strokewatch_historical_epidemiology.csv', HISTORICAL_TRENDS);
+    const exportRows = HISTORICAL_TRENDS.map((t) => ({
+      Year: t.year,
+      'Global Incident Cases (Millions)': t.globalCases,
+      'Global Fatalities (Millions)': t.deaths,
+      'Global DALYs Lost (Millions)': t.dalys,
+      'India Incident Cases (Millions)': t.indiaCases,
+      'Projection Status': t.isProjected ? 'Epidemiological Projection (GBD Model)' : 'Historical Verified Registry',
+      'Data Audit': 'WHO & Lancet Neurology GBD 2021 Stroke Audit'
+    }));
+    downloadCSV('strokewatch_historical_epidemiology_1990_2035.csv', exportRows);
+    setIsExported(true);
+    setTimeout(() => setIsExported(false), 2000);
   };
 
   const handleToggleCountry = (iso: string) => {
@@ -64,10 +76,24 @@ export const AnalyticsCenter: React.FC = () => {
 
         <button
           onClick={handleExportAll}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors shadow-sm heading-rounded border-t border-slate-700"
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-xs heading-rounded border cursor-pointer ${
+            isExported
+              ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm'
+              : 'bg-sky-600 hover:bg-sky-700 text-white border-sky-500 hover:shadow-sm'
+          }`}
+          title="Export longitudinal GBD historical trends as CSV"
         >
-          <Download className="w-4 h-4" />
-          <span>Export Analytics CSV</span>
+          {isExported ? (
+            <>
+              <Check className="w-4 h-4 text-white" />
+              <span>CSV Downloaded!</span>
+            </>
+          ) : (
+            <>
+              <Download className="w-4 h-4 text-white" />
+              <span>Export Analytics CSV</span>
+            </>
+          )}
         </button>
       </div>
 
