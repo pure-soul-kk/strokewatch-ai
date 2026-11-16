@@ -813,7 +813,7 @@ export const RiskAssessmentLab: React.FC = () => {
       {viewMode === 'questionnaire' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
           <div className="lg:col-span-2 space-y-4">
-            {RISK_LAB_QUESTIONS.map((q) => {
+            {RISK_LAB_QUESTIONS.map((q, idx) => {
               const selectedOpt = answers[q.id];
               const isAnswered = selectedOpt !== undefined;
 
@@ -827,10 +827,10 @@ export const RiskAssessmentLab: React.FC = () => {
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-2">
                       <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-800 font-bold text-xs flex items-center justify-center font-mono">
-                        {q.order}
+                        {idx + 1}
                       </span>
                       <h3 className="text-sm font-bold text-slate-900 heading-rounded">
-                        {q.title}
+                        {q.question}
                       </h3>
                     </div>
                     {isAnswered && (
@@ -839,7 +839,7 @@ export const RiskAssessmentLab: React.FC = () => {
                   </div>
 
                   <p className="text-xs text-slate-600 mb-3.5 ml-8 leading-relaxed">
-                    {q.explanation}
+                    {q.subtext}
                   </p>
 
                   <div className="space-y-2 ml-8">
