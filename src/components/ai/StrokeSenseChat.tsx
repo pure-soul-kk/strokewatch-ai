@@ -181,9 +181,6 @@ export const StrokeSenseChat: React.FC = () => {
                     : 'reflective-subcard text-slate-800 rounded-tl-none'
                 }`}
               >
-                    : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none shadow-xs'
-                }`}
-              >
                 {/* Emergency banner inside bubble if triggered */}
                 {msg.isEmergencyAlert && (
                   <div className="flex items-center gap-2 pb-2 mb-2 border-b border-red-200 text-red-800 font-bold uppercase tracking-wider text-xs">
