@@ -41,7 +41,12 @@ interface NavItem {
   id: NavTab;
   label: string;
   badge?: string;
+  badgeClass?: string;
   icon: React.ElementType;
+  iconColor: string;
+  iconBg: string;
+  activeBg: string;
+  activeText: string;
   description: string;
 }
 
@@ -50,60 +55,102 @@ const NAV_ITEMS: NavItem[] = [
     id: 'dashboard',
     label: 'Command Dashboard',
     icon: LayoutDashboard,
+    iconColor: 'text-sky-600',
+    iconBg: 'bg-sky-50/80 border-sky-200/60',
+    activeBg: 'bg-sky-600',
+    activeText: 'text-sky-950',
     description: 'Executive KPIs, Live Counter & Stroke Clock'
   },
   {
     id: 'map',
     label: 'Global Surveillance Map',
     badge: '3D',
+    badgeClass: 'bg-teal-50 text-teal-800 border-teal-200',
     icon: Globe,
+    iconColor: 'text-teal-600',
+    iconBg: 'bg-teal-50/80 border-teal-200/60',
+    activeBg: 'bg-teal-600',
+    activeText: 'text-teal-950',
     description: 'Interactive 204-Country Burden Explorer'
   },
   {
     id: 'india',
     label: 'India Stroke Intelligence',
     badge: 'ICMR',
+    badgeClass: 'bg-amber-50 text-amber-800 border-amber-200',
     icon: MapPin,
+    iconColor: 'text-amber-600',
+    iconBg: 'bg-amber-50/80 border-amber-200/60',
+    activeBg: 'bg-amber-600',
+    activeText: 'text-amber-950',
     description: 'State Registries & Hemorrhagic Distribution'
   },
   {
     id: 'ai-chat',
     label: 'StrokeSense AI',
     badge: 'AI',
+    badgeClass: 'bg-indigo-50 text-indigo-800 border-indigo-200',
     icon: Bot,
+    iconColor: 'text-indigo-600',
+    iconBg: 'bg-indigo-50/80 border-indigo-200/60',
+    activeBg: 'bg-indigo-600',
+    activeText: 'text-indigo-950',
     description: 'Evidence-Based Clinical Intelligence'
   },
   {
     id: 'risk-lab',
     label: 'ML Stroke Predictor',
     badge: 'Gist ML',
+    badgeClass: 'bg-rose-50 text-rose-800 border-rose-200',
     icon: HeartPulse,
+    iconColor: 'text-rose-600',
+    iconBg: 'bg-rose-50/80 border-rose-200/60',
+    activeBg: 'bg-rose-600',
+    activeText: 'text-rose-950',
     description: 'Trained Models (Logistic Regression, RF, MLP)'
   },
   {
     id: 'emergency',
     label: 'FAST Emergency Center',
     badge: '911',
+    badgeClass: 'bg-red-50 text-red-700 border-red-200 animate-pulse',
     icon: AlertCircle,
+    iconColor: 'text-red-600',
+    iconBg: 'bg-red-50/80 border-red-200/60',
+    activeBg: 'bg-red-600',
+    activeText: 'text-red-950',
     description: 'Time-is-Brain & Acute Stroke Protocol'
   },
   {
     id: 'analytics',
     label: 'Analytics & Research',
     icon: BarChart3,
+    iconColor: 'text-blue-600',
+    iconBg: 'bg-blue-50/80 border-blue-200/60',
+    activeBg: 'bg-blue-600',
+    activeText: 'text-blue-950',
     description: 'Historical Trends, Pyramids & Subtypes'
   },
   {
     id: 'prediction',
     label: 'What-If? Simulator',
     badge: 'Model',
+    badgeClass: 'bg-purple-50 text-purple-800 border-purple-200',
     icon: Sliders,
+    iconColor: 'text-purple-600',
+    iconBg: 'bg-purple-50/80 border-purple-200/60',
+    activeBg: 'bg-purple-600',
+    activeText: 'text-purple-950',
     description: 'PAF Scenario-Based Burden Forecasting'
   },
   {
     id: 'research-feed',
     label: 'News & Impact Stories',
     icon: Newspaper,
+    iconColor: 'text-emerald-600',
+    iconBg: 'bg-emerald-50/80 border-emerald-200/60',
+    activeBg: 'bg-emerald-600',
+    activeText: 'text-emerald-950',
     description: 'Lancet / WHO Discoveries & Recovery Case Logs'
   }
 ];
@@ -156,16 +203,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
                 className={`w-full group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
                   isActive
-                    ? 'reflective-subcard bg-white/90 text-sky-900 font-semibold border-sky-200/90 shadow-sm'
+                    ? 'reflective-subcard bg-white/95 font-bold border-sky-300 shadow-sm'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 border border-transparent'
                 }`}
                 title={isCollapsed ? item.label : undefined}
               >
                 <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors border ${
                     isActive
-                      ? 'bg-sky-600 text-white shadow-sm'
-                      : 'bg-slate-100/80 group-hover:bg-white text-slate-600 group-hover:text-slate-900 border border-slate-200/50'
+                      ? `${item.activeBg} text-white shadow-xs border-transparent`
+                      : `${item.iconBg} ${item.iconColor} group-hover:scale-105`
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -174,17 +221,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 {!isCollapsed && (
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold truncate text-slate-800 group-hover:text-slate-900">
+                      <span className={`text-xs font-semibold truncate ${isActive ? item.activeText : 'text-slate-800 group-hover:text-slate-900'}`}>
                         {item.label}
                       </span>
                       {item.badge && (
                         <span
-                          className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full ${
-                            item.badge === '911'
-                              ? 'bg-red-50 text-red-600 border border-red-200'
-                              : item.badge === 'AI'
-                              ? 'bg-purple-50 text-purple-700 border border-purple-200'
-                              : 'bg-sky-50 text-sky-700 border border-sky-200'
+                          className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border font-mono ${
+                            item.badgeClass || 'bg-sky-50 text-sky-700 border-sky-200'
                           }`}
                         >
                           {item.badge}

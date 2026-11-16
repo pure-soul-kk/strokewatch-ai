@@ -106,13 +106,13 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
         </div>
       </div>
 
-      {/* Main Big Ticking Numbers Grid */}
+      {/* Main Big Ticking Numbers Grid with Clinical Medical Accents */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-6">
         {/* YTD Strokes */}
-        <div className="p-4 rounded-xl reflective-subcard">
+        <div className="p-4 rounded-xl reflective-subcard border-t-4 border-t-sky-500 bg-gradient-to-b from-sky-50/40 to-transparent">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="uppercase font-medium tracking-wide">Year-To-Date Estimated Cases</span>
-            <span className="flex items-center gap-1 text-sky-600 text-[11px] font-semibold">
+            <span className="uppercase font-semibold tracking-wide text-sky-900">YTD Incident Cases</span>
+            <span className="flex items-center gap-1 text-sky-600 text-[11px] font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
               <span>LIVE</span>
             </span>
@@ -121,52 +121,54 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
             {formatLargeInt(counterData.yearToDateStrokes)}
           </div>
           <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
-            <Calendar className="w-3 h-3 text-slate-400" />
+            <Calendar className="w-3 h-3 text-sky-600" />
             <span>Cumulative since Jan 1 (UTC)</span>
           </div>
         </div>
 
         {/* Today's Estimated Cases */}
-        <div className="p-4 rounded-xl reflective-subcard">
+        <div className="p-4 rounded-xl reflective-subcard border-t-4 border-t-blue-500 bg-gradient-to-b from-blue-50/40 to-transparent">
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-            <span className="uppercase font-medium tracking-wide">Today's Estimated Cases</span>
+            <span className="uppercase font-semibold tracking-wide text-blue-900">Today's Estimated Cases</span>
+            <span className="text-[10px] font-mono text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">24H</span>
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900 tracking-tight">
+          <div className="text-2xl sm:text-3xl font-extrabold font-mono text-blue-950 tracking-tight">
             {formatLargeInt(counterData.todayStrokes)}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            Rate: <strong>~1 event every {secondsPerStroke}s</strong>
+          <div className="text-[11px] text-slate-600 mt-1">
+            Cadence: <strong className="text-blue-900">~1 event every {secondsPerStroke}s</strong>
           </div>
         </div>
 
         {/* YTD Deaths */}
-        <div className="p-4 rounded-xl reflective-subcard">
-          <div className="flex items-center justify-between text-xs text-red-600 mb-1">
-            <span className="uppercase font-medium tracking-wide">YTD Estimated Fatalities</span>
+        <div className="p-4 rounded-xl reflective-subcard border-t-4 border-t-rose-500 bg-gradient-to-b from-rose-50/40 to-transparent">
+          <div className="flex items-center justify-between text-xs text-rose-700 mb-1">
+            <span className="uppercase font-semibold tracking-wide">YTD Fatalities</span>
+            <span className="text-[10px] font-mono text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">MORTALITY</span>
           </div>
-          <div className="text-2xl sm:text-3xl font-extrabold font-mono text-red-600 tracking-tight">
+          <div className="text-2xl sm:text-3xl font-extrabold font-mono text-rose-600 tracking-tight">
             {formatLargeInt(counterData.yearToDateDeaths)}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            Rate: <strong>~1 fatality every {secondsPerDeath}s</strong>
+          <div className="text-[11px] text-slate-600 mt-1">
+            Fatality Cadence: <strong className="text-rose-700">~1 every {secondsPerDeath}s</strong>
           </div>
         </div>
 
         {/* Baseline Source */}
-        <div className="p-4 rounded-xl reflective-subcard flex flex-col justify-between">
+        <div className="p-4 rounded-xl reflective-subcard border-t-4 border-t-emerald-500 bg-gradient-to-b from-emerald-50/40 to-transparent flex flex-col justify-between">
           <div>
-            <div className="text-xs uppercase font-medium tracking-wide text-slate-500 mb-1">
+            <div className="text-xs uppercase font-semibold tracking-wide text-emerald-900 mb-1">
               Annual Incidence Baseline
             </div>
-            <div className="text-xl font-bold font-mono text-sky-700">
+            <div className="text-xl font-black font-mono text-emerald-800">
               {formatLargeInt(config.annualIncidence)}
             </div>
-            <div className="text-[11px] text-slate-500">
+            <div className="text-[11px] text-slate-600">
               New cases / calendar year
             </div>
           </div>
-          <div className="text-[10px] text-slate-500 mt-2 truncate flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+          <div className="text-[10px] text-slate-500 mt-2 truncate flex items-center gap-1 font-mono">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
             <span className="truncate">{config.dataSource}</span>
           </div>
         </div>
