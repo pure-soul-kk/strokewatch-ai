@@ -68,25 +68,41 @@ export const LiveStrokeCounter: React.FC<LiveStrokeCounterProps> = ({
           </div>
         </div>
 
-        {/* Quick Region Selector Tabs */}
-        <div className="flex items-center gap-1 p-1 rounded-xl bg-white/60 border border-slate-200/80 backdrop-blur-md shadow-inner">
-          {(['global', 'india', 'usa', 'china', 'uk'] as const).map((regKey) => {
-            const isSelected = currentRegion === regKey;
-            const item = COUNTER_CONFIGS[regKey];
-            return (
-              <button
-                key={regKey}
-                onClick={() => onRegionChange(regKey)}
-                className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
-                  isSelected
-                    ? 'reflective-pill-active font-bold shadow-sm'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
-                }`}
-              >
-                {item.name}
-              </button>
-            );
-          })}
+        {/* Quick Region Selector Tabs & ECG Vector Wave */}
+        <div className="flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900 text-sky-400 border border-slate-700 font-mono text-[11px] shadow-inner">
+            <svg width="64" height="20" viewBox="0 0 64 20" className="overflow-visible">
+              <path
+                d="M 0 10 L 15 10 L 20 4 L 25 18 L 30 2 L 35 14 L 40 10 L 64 10"
+                fill="none"
+                stroke="#38BDF8"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="animate-pulse"
+              />
+            </svg>
+            <span className="font-bold">CADENCE ACTIVE</span>
+          </div>
+
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-white/60 border border-slate-200/80 backdrop-blur-md shadow-inner">
+            {(['global', 'india', 'usa', 'china', 'uk'] as const).map((regKey) => {
+              const isSelected = currentRegion === regKey;
+              const item = COUNTER_CONFIGS[regKey];
+              return (
+                <button
+                  key={regKey}
+                  onClick={() => onRegionChange(regKey)}
+                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                    isSelected
+                      ? 'reflective-pill-active font-bold shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/70'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 

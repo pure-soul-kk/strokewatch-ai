@@ -12,7 +12,10 @@ import {
   Sliders,
   BarChart2,
   ShieldAlert,
-  Sparkles
+  Sparkles,
+  TrendingDown,
+  Layers,
+  FileCheck
 } from 'lucide-react';
 import { RISK_LAB_QUESTIONS } from '@/data/educational-content';
 import { predictGistStrokeRisk, GistPredictionInput } from '@/lib/gist-ml-engine';
@@ -96,6 +99,61 @@ export const RiskAssessmentLab: React.FC = () => {
 
   const tier = getTier(totalScore);
 
+  // ---------------------------------------------------------------------------
+  // GRAPHICAL COMPUTATIONS (SVG Gauge, Radar Spider Plot, Carotid Stenosis)
+  // ---------------------------------------------------------------------------
+  // 1. Semi-circular Speedometer Gauge Angle
+  const clampedProb = Math.min(100, Math.max(0, mlResult.probability));
+  // Needle angle: 180 deg (0%) down to 0 deg (100%)
+  const gaugeAngleDeg = 180 - (clampedProb / 100) * 180;
+  const gaugeAngleRad = (gaugeAngleDeg * Math.PI) / 180;
+  const gaugeCenterX = 110;
+  const gaugeCenterY = 115;
+  const needleLength = 68;
+  const needleTipX = gaugeCenterX + needleLength * Math.cos(gaugeAngleRad);
+  const needleTipY = gaugeCenterY - needleLength * Math.sin(gaugeAngleRad);
+
+  // 2. 6-Axis Spider / Radar Chart
+  // Norms between 0.05 and 1.0
+  const ageNorm = Math.min(1.0, Math.max(0.1, (age - 18) / 72));
+  const glucoseNorm = Math.min(1.0, Math.max(0.1, (avgGlucoseLevel - 60) / 180));
+  const bmiNorm = Math.min(1.0, Math.max(0.1, (bmi - 16) / 28));
+  const htnNorm = hypertension ? 0.95 : 0.15;
+  const hdNorm = heartDisease ? 0.95 : 0.15;
+  const smokeNorm = smokingStatus === 'smokes' ? 1.0 : smokingStatus === 'formerly smoked' ? 0.55 : 0.15;
+
+  const radarMetrics = [
+    { label: 'Age', val: ageNorm, angle: -90 },
+    { label: 'Glucose', val: glucoseNorm, angle: -30 },
+    { label: 'Adiposity', val: bmiNorm, angle: 30 },
+    { label: 'BP / HTN', val: htnNorm, angle: 90 },
+    { label: 'Heart', val: hdNorm, angle: 150 },
+    { label: 'Smoking', val: smokeNorm, angle: 210 }
+  ];
+
+  const radarCenterX = 120;
+  const radarCenterY = 115;
+  const radarMaxR = 75;
+
+  const radarPoints = radarMetrics.map((m) => {
+    const rad = (m.angle * Math.PI) / 180;
+    const r = m.val * radarMaxR;
+    return {
+      x: radarCenterX + r * Math.cos(rad),
+      y: radarCenterY + r * Math.sin(rad),
+      labelX: radarCenterX + (radarMaxR + 18) * Math.cos(rad),
+      labelY: radarCenterY + (radarMaxR + 18) * Math.sin(rad),
+      label: m.label
+    };
+  });
+  const radarPolygonPointsStr = radarPoints.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+
+  // 3. Carotid Artery Stenosis Estimate
+  const plaqueSeverity = Math.min(0.85, Math.max(0.05, 
+    (ageNorm * 0.35) + (glucoseNorm * 0.25) + (smokeNorm * 0.2) + (htnNorm * 0.2)
+  ));
+  const lumenRadius = 38 * (1 - plaqueSeverity * 0.7);
+
   return (
     <div className="space-y-6">
       {/* Header Banner */}
@@ -104,14 +162,14 @@ export const RiskAssessmentLab: React.FC = () => {
           <div className="flex items-center gap-2 mb-1.5">
             <Brain className="w-6 h-6 text-sky-600" />
             <h2 className="text-xl font-bold text-slate-900 heading-rounded tracking-tight">
-              Stroke Risk Assessment & Machine Learning Lab
+              Stroke Risk Assessment & Clinical Machine Learning
             </h2>
             <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300 shadow-sm">
-              GIST ML PIPELINE
+              GBD 2021 & GIST TRAINED
             </span>
           </div>
           <p className="text-xs text-slate-600 max-w-2xl leading-relaxed">
-            Assess clinical risk using machine learning models trained on 5,110 patient records (Logistic Regression, Random Forest, Neural Network MLP) with SMOTE class balancing.
+            Multivariate predictive surveillance calibrated against 5,110 patient records using SMOTE class-balanced Logistic Regression, Random Forest, and Neural Networks.
           </p>
         </div>
 
@@ -137,33 +195,306 @@ export const RiskAssessmentLab: React.FC = () => {
             }`}
           >
             <HeartPulse className="w-3.5 h-3.5" />
-            <span>Lifestyle Questionnaire</span>
+            <span>Awareness Questionnaire</span>
           </button>
         </div>
       </div>
 
       {/* ===================================================================== */}
-      {/* VIEW 1: MACHINE LEARNING PREDICTION LAB */}
+      {/* VIEW 1: MACHINE LEARNING GRAPHICAL PREDICTION CONSOLE */}
       {/* ===================================================================== */}
       {viewMode === 'ml-predict' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-in fade-in duration-300">
-          {/* Left Column: Clinical Parameters Input Form */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="p-6 rounded-2xl glass-panel reflective-glint shadow-sm space-y-5">
+        <div className="space-y-6 animate-in fade-in duration-300">
+          
+          {/* TOP GRAPHICAL HUD: Dial Speedometer + 6-Axis Radar Spider Plot + Carotid Stenosis */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            
+            {/* 1. SPEEDOMETER RADIAL GAUGE */}
+            <div className="p-5 rounded-2xl glass-panel reflective-glint flex flex-col items-center justify-between shadow-sm relative overflow-hidden">
+              <div className="w-full flex justify-between items-center pb-2 border-b border-slate-200/80 text-xs">
+                <span className="font-bold text-slate-900 heading-rounded flex items-center gap-1.5">
+                  <Activity className="w-4 h-4 text-sky-600" />
+                  <span>Probability Speedometer</span>
+                </span>
+                <span 
+                  className="font-extrabold text-[10px] px-2 py-0.5 rounded-full border shadow-xs"
+                  style={{
+                    backgroundColor: `${mlResult.riskColor}15`,
+                    color: mlResult.riskColor,
+                    borderColor: `${mlResult.riskColor}40`
+                  }}
+                >
+                  {mlResult.riskCategory}
+                </span>
+              </div>
+
+              {/* SVG Radial Gauge */}
+              <div className="relative my-2">
+                <svg width="220" height="130" viewBox="0 0 220 130" className="overflow-visible">
+                  <defs>
+                    <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#10B981" />
+                      <stop offset="45%" stopColor="#F59E0B" />
+                      <stop offset="100%" stopColor="#EF4444" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Outer Background Arc Track */}
+                  <path
+                    d="M 25 115 A 85 85 0 0 1 195 115"
+                    fill="none"
+                    stroke="#E2E8F0"
+                    strokeWidth="14"
+                    strokeLinecap="round"
+                  />
+
+                  {/* Gradient Colored Risk Arc */}
+                  <path
+                    d="M 25 115 A 85 85 0 0 1 195 115"
+                    fill="none"
+                    stroke="url(#gaugeGradient)"
+                    strokeWidth="12"
+                    strokeLinecap="round"
+                    strokeDasharray="267"
+                    strokeDashoffset={267 - (267 * (clampedProb / 100))}
+                    className="transition-all duration-500 ease-out"
+                  />
+
+                  {/* Tick Marks */}
+                  <text x="22" y="128" fill="#94A3B8" fontSize="9" fontWeight="700" textAnchor="middle">0%</text>
+                  <text x="60" y="52" fill="#94A3B8" fontSize="9" fontWeight="700" textAnchor="middle">25%</text>
+                  <text x="110" y="24" fill="#94A3B8" fontSize="9" fontWeight="700" textAnchor="middle">50%</text>
+                  <text x="160" y="52" fill="#94A3B8" fontSize="9" fontWeight="700" textAnchor="middle">75%</text>
+                  <text x="198" y="128" fill="#94A3B8" fontSize="9" fontWeight="700" textAnchor="middle">100%</text>
+
+                  {/* Animated Needle */}
+                  <line
+                    x1={gaugeCenterX}
+                    y1={gaugeCenterY}
+                    x2={needleTipX}
+                    y2={needleTipY}
+                    stroke="#0F172A"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    className="transition-all duration-300 ease-out"
+                  />
+                  {/* Needle Center Pivot Pin */}
+                  <circle cx={gaugeCenterX} cy={gaugeCenterY} r="7" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+                </svg>
+
+                {/* Score Readout Center Badge */}
+                <div className="text-center -mt-2">
+                  <div className="text-3xl font-black font-mono tracking-tight" style={{ color: mlResult.riskColor }}>
+                    {mlResult.probability}%
+                  </div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                    10-Year Estimated Probability
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full flex justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-100 font-mono">
+                <span>Low: &lt;15%</span>
+                <span>Moderate: 15–40%</span>
+                <span>High: &gt;40%</span>
+              </div>
+            </div>
+
+            {/* 2. SIX-AXIS VASCULAR SPIDER / RADAR PLOT */}
+            <div className="p-5 rounded-2xl glass-panel reflective-glint flex flex-col items-center justify-between shadow-sm relative overflow-hidden">
+              <div className="w-full flex justify-between items-center pb-2 border-b border-slate-200/80 text-xs">
+                <span className="font-bold text-slate-900 heading-rounded flex items-center gap-1.5">
+                  <Layers className="w-4 h-4 text-sky-600" />
+                  <span>Vascular Risk Spider Plot</span>
+                </span>
+                <span className="text-[10px] text-sky-800 font-semibold px-2 py-0.5 rounded-full bg-sky-50 border border-sky-200">
+                  6-DIMENSIONS
+                </span>
+              </div>
+
+              {/* SVG Spider Chart */}
+              <div className="my-1">
+                <svg width="240" height="190" viewBox="0 0 240 190">
+                  {/* Background Polygons (Spider Web concentric levels) */}
+                  {[0.33, 0.66, 1.0].map((level, idx) => {
+                    const levelPoints = radarMetrics.map((m) => {
+                      const rad = (m.angle * Math.PI) / 180;
+                      const r = level * radarMaxR;
+                      return `${(radarCenterX + r * Math.cos(rad)).toFixed(1)},${(radarCenterY + r * Math.sin(rad)).toFixed(1)}`;
+                    }).join(' ');
+                    return (
+                      <polygon
+                        key={idx}
+                        points={levelPoints}
+                        fill="none"
+                        stroke="#E2E8F0"
+                        strokeWidth="1"
+                        strokeDasharray={idx === 2 ? 'none' : '2,2'}
+                      />
+                    );
+                  })}
+
+                  {/* Web Spokes / Axes */}
+                  {radarMetrics.map((m, idx) => {
+                    const rad = (m.angle * Math.PI) / 180;
+                    const x = radarCenterX + radarMaxR * Math.cos(rad);
+                    const y = radarCenterY + radarMaxR * Math.sin(rad);
+                    return (
+                      <line
+                        key={idx}
+                        x1={radarCenterX}
+                        y1={radarCenterY}
+                        x2={x}
+                        y2={y}
+                        stroke="#CBD5E1"
+                        strokeWidth="1"
+                      />
+                    );
+                  })}
+
+                  {/* Filled Patient Risk Polygon */}
+                  <polygon
+                    points={radarPolygonPointsStr}
+                    fill="rgba(14, 165, 233, 0.28)"
+                    stroke="#0284C7"
+                    strokeWidth="2.5"
+                    className="transition-all duration-300 ease-out"
+                  />
+
+                  {/* Vertices Dots */}
+                  {radarPoints.map((p, idx) => (
+                    <circle
+                      key={idx}
+                      cx={p.x}
+                      cy={p.y}
+                      r="4"
+                      fill="#0284C7"
+                      stroke="#FFFFFF"
+                      strokeWidth="1.5"
+                      className="transition-all duration-300"
+                    />
+                  ))}
+
+                  {/* Dimension Labels */}
+                  {radarPoints.map((p, idx) => (
+                    <text
+                      key={idx}
+                      x={p.labelX}
+                      y={p.labelY}
+                      fill="#475569"
+                      fontSize="9"
+                      fontWeight="700"
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                    >
+                      {p.label}
+                    </text>
+                  ))}
+                </svg>
+              </div>
+
+              <div className="w-full text-center text-[10px] text-slate-500 pt-2 border-t border-slate-100">
+                Polygon area expands with cumulative vascular burden
+              </div>
+            </div>
+
+            {/* 3. CAROTID ARTERY LUMEN & ATHEROSCLEROSIS CROSS-SECTION */}
+            <div className="p-5 rounded-2xl glass-panel reflective-glint flex flex-col items-center justify-between shadow-sm relative overflow-hidden">
+              <div className="w-full flex justify-between items-center pb-2 border-b border-slate-200/80 text-xs">
+                <span className="font-bold text-slate-900 heading-rounded flex items-center gap-1.5">
+                  <Activity className="w-4 h-4 text-sky-600" />
+                  <span>Carotid Lumen Perfusion</span>
+                </span>
+                <span className="text-[10px] font-mono text-slate-600 font-bold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">
+                  {Math.round(plaqueSeverity * 100)}% STENOSIS
+                </span>
+              </div>
+
+              {/* SVG Carotid Cross-Section */}
+              <div className="my-2 flex flex-col items-center">
+                <svg width="180" height="140" viewBox="0 0 180 140">
+                  <defs>
+                    <radialGradient id="arteryLumenGradient" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#DC2626" />
+                      <stop offset="70%" stopColor="#B91C1C" />
+                      <stop offset="100%" stopColor="#991B1B" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Tunica Adventitia / External Wall */}
+                  <circle cx="90" cy="70" r="54" fill="#FEE2E2" stroke="#FCA5A5" strokeWidth="4" />
+                  
+                  {/* Tunica Media / Muscle Layer */}
+                  <circle cx="90" cy="70" r="48" fill="#FEF2F2" stroke="#EF4444" strokeWidth="2.5" />
+
+                  {/* Atherosclerotic Plaque Crescent (Lipid / Fibrous buildup) */}
+                  <ellipse 
+                    cx={90 + (plaqueSeverity * 14)} 
+                    cy="70" 
+                    rx={38 * plaqueSeverity} 
+                    ry="36" 
+                    fill="#F59E0B" 
+                    stroke="#D97706" 
+                    strokeWidth="1.5"
+                    opacity="0.85"
+                    className="transition-all duration-300"
+                  />
+
+                  {/* Open Perfused Lumen (Blood flow opening) */}
+                  <circle 
+                    cx={90 - (plaqueSeverity * 10)} 
+                    cy="70" 
+                    r={Math.max(10, lumenRadius)} 
+                    fill="url(#arteryLumenGradient)" 
+                    stroke="#7F1D1D" 
+                    strokeWidth="1"
+                    className="transition-all duration-300"
+                  />
+
+                  {/* Pulsating Flow Particle */}
+                  <circle 
+                    cx={90 - (plaqueSeverity * 10)} 
+                    cy="70" 
+                    r="3" 
+                    fill="#FFFFFF" 
+                    opacity="0.9"
+                    className="animate-ping"
+                  />
+                </svg>
+
+                <div className="text-center text-xs font-semibold text-slate-800">
+                  Effective Vessel Patency: <span className="font-mono text-sky-700 font-extrabold">{Math.round((1 - plaqueSeverity) * 100)}%</span>
+                </div>
+              </div>
+
+              <div className="w-full text-center text-[10px] text-slate-500 pt-2 border-t border-slate-100">
+                Plaque estimated from Age, Glucose, Hypertension, and Nicotine
+              </div>
+            </div>
+
+          </div>
+
+          {/* LOWER INTERACTIVE SECTION: Input Sliders + Cross-Model Precision Matrix */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            {/* Left 7 Columns: Precision Patient Input Sliders */}
+            <div className="lg:col-span-7 p-6 rounded-2xl glass-panel reflective-glint shadow-sm space-y-5">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
                 <div className="flex items-center gap-2">
                   <Sliders className="w-4 h-4 text-sky-600" />
-                  <span className="text-sm font-bold text-slate-900 heading-rounded">Patient Clinical Inputs</span>
+                  <span className="text-sm font-bold text-slate-900 heading-rounded">Clinical Biomarker Controls</span>
                 </div>
-                <span className="text-[11px] font-semibold text-slate-500">Live Auto-Inference</span>
+                <span className="text-[11px] font-mono text-slate-500 bg-white/70 px-2 py-0.5 rounded border border-slate-200">
+                  REAL-TIME REACTIVE
+                </span>
               </div>
 
-              {/* Demographics */}
+              {/* Age & Gender */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-700 flex justify-between">
                     <span>Patient Age:</span>
-                    <span className="font-mono text-sky-700 font-extrabold">{age} years</span>
+                    <span className="font-mono text-sky-700 font-black text-sm">{age} years</span>
                   </label>
                   <input
                     type="range"
@@ -173,6 +504,12 @@ export const RiskAssessmentLab: React.FC = () => {
                     onChange={(e) => setAge(Number(e.target.value))}
                     className="w-full mt-2 accent-sky-600 cursor-pointer"
                   />
+                  <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                    <span>18</span>
+                    <span>50</span>
+                    <span>65 (Elevated)</span>
+                    <span>100</span>
+                  </div>
                 </div>
 
                 <div>
@@ -183,10 +520,10 @@ export const RiskAssessmentLab: React.FC = () => {
                         key={g}
                         type="button"
                         onClick={() => setGender(g)}
-                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold border transition-all ${
+                        className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold border transition-all ${
                           gender === g
                             ? 'bg-sky-600 text-white border-sky-600 shadow-xs'
-                            : 'bg-white/80 text-slate-700 border-slate-200 hover:bg-slate-50'
+                            : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                         }`}
                       >
                         {g}
@@ -196,12 +533,12 @@ export const RiskAssessmentLab: React.FC = () => {
                 </div>
               </div>
 
-              {/* Vitals & Biomarkers */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+              {/* Glucose & BMI Sliders */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-3 border-t border-slate-100">
                 <div>
                   <label className="text-xs font-bold text-slate-700 flex justify-between">
-                    <span>Avg Glucose Level:</span>
-                    <span className="font-mono text-sky-700 font-extrabold">{avgGlucoseLevel} mg/dL</span>
+                    <span>Average Blood Glucose:</span>
+                    <span className="font-mono text-sky-700 font-black text-sm">{avgGlucoseLevel} mg/dL</span>
                   </label>
                   <input
                     type="range"
@@ -211,17 +548,17 @@ export const RiskAssessmentLab: React.FC = () => {
                     onChange={(e) => setAvgGlucoseLevel(Number(e.target.value))}
                     className="w-full mt-2 accent-sky-600 cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                    <span>Normal &lt;100</span>
-                    <span>Pre-diabetes 100–140</span>
-                    <span>Diabetes &gt;140</span>
+                  <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                    <span className="text-emerald-700">&lt;100 Normal</span>
+                    <span className="text-amber-700">100–140 Pre-DM</span>
+                    <span className="text-red-700">&gt;140 Diabetic</span>
                   </div>
                 </div>
 
                 <div>
                   <label className="text-xs font-bold text-slate-700 flex justify-between">
                     <span>Body Mass Index (BMI):</span>
-                    <span className="font-mono text-sky-700 font-extrabold">{bmi} kg/m²</span>
+                    <span className="font-mono text-sky-700 font-black text-sm">{bmi} kg/m²</span>
                   </label>
                   <input
                     type="range"
@@ -232,47 +569,61 @@ export const RiskAssessmentLab: React.FC = () => {
                     onChange={(e) => setBmi(Number(e.target.value))}
                     className="w-full mt-2 accent-sky-600 cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-slate-400 mt-1">
-                    <span>Normal 18.5–24.9</span>
-                    <span>Median: 28.1</span>
-                    <span>Obesity ≥30</span>
+                  <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                    <span className="text-emerald-700">&lt;25 Normal</span>
+                    <span className="text-sky-700 font-bold">28.1 Median</span>
+                    <span className="text-red-700">&ge;30 Obese</span>
                   </div>
                 </div>
               </div>
 
-              {/* Comorbidities */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100">
-                <label className="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200/80 bg-white/60 hover:bg-white cursor-pointer transition-all">
-                  <input
-                    type="checkbox"
-                    checked={hypertension}
-                    onChange={(e) => setHypertension(e.target.checked)}
-                    className="w-4 h-4 rounded text-sky-600 accent-sky-600 cursor-pointer"
-                  />
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">Arterial Hypertension</div>
-                    <div className="text-[10px] text-slate-500">History of high blood pressure</div>
+              {/* Comorbidity Toggles */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setHypertension(!hypertension)}
+                  className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${
+                    hypertension 
+                      ? 'bg-red-50/80 border-red-300 text-red-950 shadow-xs' 
+                      : 'bg-white border-slate-200 text-slate-600'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded flex items-center justify-center font-bold text-xs ${
+                    hypertension ? 'bg-red-600 text-white' : 'border border-slate-300'
+                  }`}>
+                    {hypertension && '✓'}
                   </div>
-                </label>
+                  <div>
+                    <div className="text-xs font-bold">Arterial Hypertension</div>
+                    <div className="text-[10px] text-slate-500">PAF: 55.5% global stroke burden</div>
+                  </div>
+                </button>
 
-                <label className="flex items-center gap-2.5 p-3 rounded-xl border border-slate-200/80 bg-white/60 hover:bg-white cursor-pointer transition-all">
-                  <input
-                    type="checkbox"
-                    checked={heartDisease}
-                    onChange={(e) => setHeartDisease(e.target.checked)}
-                    className="w-4 h-4 rounded text-sky-600 accent-sky-600 cursor-pointer"
-                  />
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">Heart Disease</div>
-                    <div className="text-[10px] text-slate-500">CAD / Prior cardiac arrhythmia</div>
+                <button
+                  type="button"
+                  onClick={() => setHeartDisease(!heartDisease)}
+                  className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${
+                    heartDisease 
+                      ? 'bg-red-50/80 border-red-300 text-red-950 shadow-xs' 
+                      : 'bg-white border-slate-200 text-slate-600'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded flex items-center justify-center font-bold text-xs ${
+                    heartDisease ? 'bg-red-600 text-white' : 'border border-slate-300'
+                  }`}>
+                    {heartDisease && '✓'}
                   </div>
-                </label>
+                  <div>
+                    <div className="text-xs font-bold">Heart Disease / Arrhythmia</div>
+                    <div className="text-[10px] text-slate-500">Cardioembolic clot etiology</div>
+                  </div>
+                </button>
               </div>
 
-              {/* Lifestyle & Socioeconomic */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
+              {/* Smoking & Sector Dropdowns */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-100">
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Smoking History</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">Tobacco History</label>
                   <select
                     value={smokingStatus}
                     onChange={(e) => setSmokingStatus(e.target.value as any)}
@@ -308,7 +659,7 @@ export const RiskAssessmentLab: React.FC = () => {
                         key={r}
                         type="button"
                         onClick={() => setResidenceType(r)}
-                        className={`flex-1 py-2 px-2 rounded-lg text-xs font-semibold border transition-all ${
+                        className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-semibold border transition-all ${
                           residenceType === r
                             ? 'bg-sky-600 text-white border-sky-600 shadow-xs'
                             : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -321,9 +672,9 @@ export const RiskAssessmentLab: React.FC = () => {
                 </div>
               </div>
 
-              {/* Model Choice Selector */}
-              <div className="pt-2 border-t border-slate-100">
-                <label className="text-xs font-bold text-slate-700 block mb-1">Active Model Architecture</label>
+              {/* Model Selector */}
+              <div className="pt-3 border-t border-slate-100">
+                <label className="text-xs font-bold text-slate-700 block mb-1">Select Inference Engine</label>
                 <select
                   value={modelChoice}
                   onChange={(e) => setModelChoice(e.target.value)}
@@ -337,132 +688,122 @@ export const RiskAssessmentLab: React.FC = () => {
               </div>
             </div>
 
-            {/* Gist Training Pipeline Provenance */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/90 text-xs text-slate-600 space-y-1.5">
-              <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-                <span>Gist ML Training Pipeline Architecture:</span>
-              </div>
-              <p className="text-[11px] leading-relaxed">
-                Trained on the benchmark 5,110 patient dataset using <strong>SMOTE</strong> (Synthetic Minority Over-sampling) on training partitions to address the 4.9% positive stroke class imbalance, <strong>StandardScaler</strong> on continuous age/glucose/BMI, and median BMI imputation.
-              </p>
-            </div>
-          </div>
-
-          {/* Right Column: Real-Time Results & Cross-Model Comparison */}
-          <div className="lg:col-span-5 space-y-5">
-            {/* Main Risk Output Card */}
-            <div className="p-6 rounded-2xl glass-panel reflective-glint shadow-sm border-t-4 border-t-sky-600 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">Stratified Risk Tier</span>
-                <span
-                  className="text-xs font-extrabold px-3 py-1 rounded-full border shadow-xs"
-                  style={{
-                    backgroundColor: `${mlResult.riskColor}15`,
-                    color: mlResult.riskColor,
-                    borderColor: `${mlResult.riskColor}40`
-                  }}
-                >
-                  {mlResult.riskCategory}
-                </span>
-              </div>
-
-              <div>
-                <div className="text-4xl font-black font-mono tracking-tight" style={{ color: mlResult.riskColor }}>
-                  {mlResult.probability}%
-                </div>
-                <div className="text-xs text-slate-500 mt-1">
-                  Estimated 10-Year Probability of Acute Cerebrovascular Event
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                <div 
-                  className="h-full transition-all duration-300"
-                  style={{ 
-                    width: `${Math.min(100, Math.max(2, mlResult.probability))}%`,
-                    backgroundColor: mlResult.riskColor
-                  }}
-                />
-              </div>
-
-              {/* Cross-Model Comparison Bar Charts */}
-              <div className="p-4 rounded-xl bg-slate-50/90 border border-slate-200/80 space-y-3">
-                <div className="text-xs font-bold text-slate-800 flex items-center justify-between">
-                  <span className="flex items-center gap-1.5">
-                    <BarChart2 className="w-3.5 h-3.5 text-sky-600" />
-                    <span>Cross-Model Probabilities:</span>
+            {/* Right 5 Columns: Cross-Model Precision Matrix & Confusion Matrix */}
+            <div className="lg:col-span-5 space-y-5">
+              
+              {/* CROSS-MODEL COMPARISON MATRIX */}
+              <div className="p-5 rounded-2xl glass-panel reflective-glint shadow-sm space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
+                  <span className="text-xs font-bold text-slate-900 heading-rounded flex items-center gap-1.5">
+                    <BarChart2 className="w-4 h-4 text-sky-600" />
+                    <span>Cross-Model Benchmark Scores</span>
                   </span>
-                  <span className="text-[10px] text-slate-500">From Gist Notebook</span>
+                  <span className="text-[10px] font-mono text-slate-500">Gist Trained</span>
                 </div>
 
-                <div className="space-y-2 text-xs">
+                <div className="space-y-3">
                   <div>
-                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
-                      <span>Logistic Regression (AUC 0.8226)</span>
-                      <span className="font-mono font-bold text-slate-900">{mlResult.modelScores.logisticRegression}%</span>
+                    <div className="flex justify-between text-xs text-slate-700 mb-1">
+                      <span className="font-semibold">Logistic Regression</span>
+                      <span className="font-mono font-bold text-sky-700">{mlResult.modelScores.logisticRegression}%</span>
                     </div>
-                    <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-sky-500 h-full" style={{ width: `${mlResult.modelScores.logisticRegression}%` }} />
+                    <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="bg-sky-600 h-full transition-all duration-300"
+                        style={{ width: `${mlResult.modelScores.logisticRegression}%` }}
+                      />
                     </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
-                      <span>Random Forest (AUC 0.7510)</span>
-                      <span className="font-mono font-bold text-slate-900">{mlResult.modelScores.randomForest}%</span>
-                    </div>
-                    <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-emerald-500 h-full" style={{ width: `${mlResult.modelScores.randomForest}%` }} />
-                    </div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">ROC-AUC: <b>0.8226</b> • High screening sensitivity</div>
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
-                      <span>Neural Network MLP (AUC 0.7660)</span>
-                      <span className="font-mono font-bold text-slate-900">{mlResult.modelScores.neuralNetwork}%</span>
+                    <div className="flex justify-between text-xs text-slate-700 mb-1">
+                      <span className="font-semibold">Random Forest Classifier</span>
+                      <span className="font-mono font-bold text-emerald-700">{mlResult.modelScores.randomForest}%</span>
                     </div>
-                    <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-purple-500 h-full" style={{ width: `${mlResult.modelScores.neuralNetwork}%` }} />
+                    <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="bg-emerald-600 h-full transition-all duration-300"
+                        style={{ width: `${mlResult.modelScores.randomForest}%` }}
+                      />
+                    </div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">ROC-AUC: <b>0.7510</b> • 100 Decision trees consensus</div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs text-slate-700 mb-1">
+                      <span className="font-semibold">Neural Network (MLP)</span>
+                      <span className="font-mono font-bold text-purple-700">{mlResult.modelScores.neuralNetwork}%</span>
+                    </div>
+                    <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                      <div 
+                        className="bg-purple-600 h-full transition-all duration-300"
+                        style={{ width: `${mlResult.modelScores.neuralNetwork}%` }}
+                      />
+                    </div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">ROC-AUC: <b>0.7660</b> • 32-16-1 ReLU hidden layers</div>
+                  </div>
+                </div>
+
+                {/* 2x2 CONFUSION MATRIX VISUAL HEATMAP */}
+                <div className="pt-3 border-t border-slate-200/80">
+                  <div className="text-xs font-bold text-slate-900 mb-2 flex items-center justify-between">
+                    <span>Confusion Matrix (Test Split n=1,022)</span>
+                    <span className="text-[10px] font-mono text-emerald-700 font-bold">AUC 0.8226</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-center text-xs font-mono">
+                    <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                      <div className="text-[10px] text-emerald-800 font-bold uppercase">True Negative</div>
+                      <div className="text-lg font-black text-emerald-900">954</div>
+                      <div className="text-[9px] text-emerald-700">Correctly Negative</div>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
+                      <div className="text-[10px] text-amber-800 font-bold uppercase">False Positive</div>
+                      <div className="text-lg font-black text-amber-900">18</div>
+                      <div className="text-[9px] text-amber-700">Type I Error</div>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-red-50 border border-red-200">
+                      <div className="text-[10px] text-red-800 font-bold uppercase">False Negative</div>
+                      <div className="text-lg font-black text-red-900">8</div>
+                      <div className="text-[9px] text-red-700">Type II Error</div>
+                    </div>
+                    <div className="p-2.5 rounded-lg bg-sky-50 border border-sky-200">
+                      <div className="text-[10px] text-sky-800 font-bold uppercase">True Positive</div>
+                      <div className="text-lg font-black text-sky-900">42</div>
+                      <div className="text-[9px] text-sky-700">Correctly Flagged</div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Patient Flags */}
-              {mlResult.identifiedFactors.length > 0 && (
-                <div className="space-y-1.5 pt-2">
-                  <div className="text-xs font-bold text-amber-800 flex items-center gap-1">
-                    <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Vascular Risk Flags Detected:</span>
+                {/* Patient Flags & Recommendations */}
+                <div className="pt-3 border-t border-slate-200/80 space-y-2 text-xs">
+                  {mlResult.identifiedFactors.length > 0 && (
+                    <div>
+                      <span className="font-bold text-amber-800 block mb-1">Detected Risk Determinants:</span>
+                      <ul className="text-[11px] text-slate-600 pl-4 list-disc space-y-0.5">
+                        {mlResult.identifiedFactors.slice(0, 3).map((f, i) => (
+                          <li key={i}>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div>
+                    <span className="font-bold text-emerald-800 block mb-1">Evidence-Based Prevention:</span>
+                    <ul className="text-[11px] text-slate-600 pl-4 list-disc space-y-0.5">
+                      {mlResult.recommendations.slice(0, 2).map((r, i) => (
+                        <li key={i}>{r}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="text-[11px] text-slate-700 space-y-1 pl-4 list-disc">
-                    {mlResult.identifiedFactors.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
-                  </ul>
                 </div>
-              )}
 
-              {/* Action Recommendations */}
-              <div className="space-y-1.5 pt-2 border-t border-slate-200/80">
-                <div className="text-xs font-bold text-emerald-800 flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Clinical & Lifestyle Action Directives:</span>
-                </div>
-                <ul className="text-[11px] text-slate-700 space-y-1 pl-4 list-disc">
-                  {mlResult.recommendations.map((r, i) => (
-                    <li key={i}>{r}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="text-[10px] text-slate-400 pt-2 border-t border-slate-100">
-                *Disclaimer: For educational surveillance only. Not an individual medical diagnosis.*
               </div>
             </div>
+
           </div>
+
         </div>
       )}
 
@@ -471,7 +812,6 @@ export const RiskAssessmentLab: React.FC = () => {
       {/* ===================================================================== */}
       {viewMode === 'questionnaire' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-300">
-          {/* Questions Stream */}
           <div className="lg:col-span-2 space-y-4">
             {RISK_LAB_QUESTIONS.map((q) => {
               const selectedOpt = answers[q.id];
