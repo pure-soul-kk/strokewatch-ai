@@ -32,6 +32,22 @@
   font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+html {
+  font-size: 17.2px; /* Proportionally elevates all rem-based typography for enhanced readability */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Enhanced legibility for micro-badges and captions */
+.text-\[9px\] {
+  font-size: 11px !important;
+}
+.text-\[10px\] {
+  font-size: 11.5px !important;
+}
+.text-\[11px\] {
+  font-size: 12.5px !important;
+}
+
 body {
   background-color: var(--bg-primary);
   background-image: 
