@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-30 h-16 glass-header px-4 lg:px-6 flex items-center justify-between">
-      {/* Left: Mobile hamburger & branding */}
+      {/* Left: Mobile hamburger & branding, Desktop Surveillance Beacon */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
@@ -57,25 +57,22 @@ export const Header: React.FC<HeaderProps> = ({
           <Menu className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-sky-50/90 border border-sky-200/90 text-sky-600 font-bold shadow-sm">
-            <Activity className="w-5 h-5" />
+        {/* Mobile branding */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-sky-50 border border-sky-200 text-sky-600 font-bold shadow-2xs">
+            <Activity className="w-4 h-4" />
           </div>
-
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base lg:text-lg tracking-tight text-slate-900 heading-rounded">
-                Stroke<span className="text-sky-600">Watch</span> AI
-              </span>
-              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/80 text-slate-600 border border-slate-200/90 shadow-sm">
-                v2.4
-              </span>
-            </div>
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              <span>Global Surveillance Active • GBD 2021 & WSO</span>
-            </div>
+            <span className="font-extrabold text-sm tracking-tight text-slate-900 heading-rounded">
+              Stroke<span className="text-sky-600">Watch</span> AI
+            </span>
           </div>
+        </div>
+
+        {/* Desktop Status Beacon */}
+        <div className="hidden lg:flex items-center gap-2 text-xs font-medium text-slate-700">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-mono text-slate-600 uppercase text-[11px] font-bold">NEUROVASCULAR SURVEILLANCE PLATFORM • GBD 2021 & WSO AUDITED</span>
         </div>
       </div>
 

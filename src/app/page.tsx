@@ -34,42 +34,42 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col font-sans selection:bg-sky-100 selection:text-sky-900">
-      {/* Top Critical Alert Banner */}
-      <EmergencyBanner onOpenFastModal={handleOpenFastCenter} />
-
-      {/* Main Command Header */}
-      <Header
-        selectedRegion={selectedRegion}
-        onSelectRegion={(reg) => {
-          setSelectedRegion(reg);
-          if (reg === 'india') {
-            setActiveTab('india');
-          }
-        }}
-        onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
-        onOpenFastCenter={handleOpenFastCenter}
-        onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex font-sans selection:bg-sky-100 selection:text-sky-900">
+      {/* Navigation Sidebar (owns left column on desktop: inset-y-0 left-0) */}
+      <Sidebar
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        isOpenMobile={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
       />
 
-      {/* Body Area with Sidebar and Main Content Canvas */}
-      <div className="flex-1 flex relative">
-        {/* Navigation Sidebar */}
-        <Sidebar
-          activeTab={activeTab}
-          onSelectTab={setActiveTab}
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-          isOpenMobile={isMobileSidebarOpen}
-          onCloseMobile={() => setIsMobileSidebarOpen(false)}
+      {/* Main Right Shell (Header + Canvas) */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out ${
+          isSidebarCollapsed ? 'lg:pl-20' : 'lg:pl-72'
+        }`}
+      >
+        {/* Top Critical Alert Banner */}
+        <EmergencyBanner onOpenFastModal={handleOpenFastCenter} />
+
+        {/* Main Command Header (Sticky Top to the right of the Sidebar) */}
+        <Header
+          selectedRegion={selectedRegion}
+          onSelectRegion={(reg) => {
+            setSelectedRegion(reg);
+            if (reg === 'india') {
+              setActiveTab('india');
+            }
+          }}
+          onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
+          onOpenFastCenter={handleOpenFastCenter}
+          onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
         />
 
         {/* Content Canvas */}
-        <main
-          className={`flex-1 transition-all duration-300 ease-in-out p-4 sm:p-6 lg:p-8 overflow-y-auto bg-[#F8FAFC] ${
-            isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-72'
-          }`}
-        >
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto bg-[#F8FAFC]">
           <div className="max-w-7xl mx-auto space-y-8">
             {/* 1. Dashboard View */}
             {activeTab === 'dashboard' && (

@@ -11,10 +11,12 @@ import {
   BarChart3, 
   Sliders, 
   Newspaper, 
-  ChevronLeft,
-  ChevronRight,
-  ShieldCheck,
-  CheckCircle2
+  ChevronLeft, 
+  ChevronRight, 
+  ShieldCheck, 
+  CheckCircle2,
+  Activity,
+  X
 } from 'lucide-react';
 
 export type NavTab = 
@@ -169,17 +171,57 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {isOpenMobile && (
         <div
           onClick={onCloseMobile}
-          className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm lg:hidden transition-opacity"
         />
       )}
 
       <aside
-        className={`fixed top-16 bottom-0 left-0 z-40 glass-sidebar flex flex-col transition-all duration-300 ease-in-out ${
+        className={`fixed inset-y-0 left-0 z-50 lg:z-40 glass-sidebar flex flex-col transition-all duration-300 ease-in-out bg-white/95 lg:bg-white/80 border-r border-slate-200/80 ${
           isCollapsed ? 'w-20' : 'w-72'
         } ${
-          isOpenMobile ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          isOpenMobile ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'
         }`}
       >
+        {/* Sidebar Header & Brand Anchor */}
+        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/80 bg-white/70 backdrop-blur-md flex-shrink-0">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-sky-50 border border-sky-200 text-sky-600 font-bold shadow-2xs flex-shrink-0">
+              <Activity className="w-4 h-4" />
+            </div>
+            {!isCollapsed && (
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-sm tracking-tight text-slate-900 heading-rounded truncate">
+                    Stroke<span className="text-sky-600">Watch</span> AI
+                  </span>
+                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200 font-mono">
+                    v2.4
+                  </span>
+                </div>
+                <div className="text-[10px] text-slate-500 font-mono truncate">GBD 2021 & WSO</div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop collapse toggle */}
+          <button
+            onClick={onToggleCollapse}
+            className="hidden lg:flex p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          </button>
+
+          {/* Mobile close button */}
+          <button
+            onClick={onCloseMobile}
+            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            title="Close navigation"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
         {/* Navigation list */}
         <div className="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
           <div className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
