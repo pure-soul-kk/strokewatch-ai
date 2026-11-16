@@ -75,10 +75,10 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     id: 'risk-lab',
-    label: 'Risk Awareness Lab',
-    badge: 'Lab',
+    label: 'ML Stroke Predictor',
+    badge: 'Gist ML',
     icon: HeartPulse,
-    description: 'Personalized Lifestyle Assessment'
+    description: 'Trained Models (Logistic Regression, RF, MLP)'
   },
   {
     id: 'emergency',
